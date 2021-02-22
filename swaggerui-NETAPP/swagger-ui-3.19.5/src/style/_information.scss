@@ -1,0 +1,143 @@
+
+
+
+.info
+{
+    margin: 50px 0;
+
+    hgroup.main
+    {
+        margin: 0 0 20px 0;
+        a
+        {
+            font-size: 12px;
+        }
+    }
+    p, li, table
+    {
+        font-size: 14px;
+
+        @include text_body();
+    }
+
+    h1, h2, h3, h4, h5
+    {
+        @include text_body();
+    }
+
+    code
+    {
+        padding: 3px 5px;
+
+        border-radius: 4px;
+        background: rgba($info-code-background-color,.05);
+
+        @include text_code($info-code-font-color);
+    }
+
+    a
+    {
+        font-size: 14px;
+
+        transition: all .4s;
+
+        @include text_body($info-link-font-color);
+
+        &:hover
+        {
+            color: darken($info-link-font-color-hover, 15%);
+        }
+    }
+    > div
+    {
+        margin: 0 0 5px 0;
+    }
+
+    .base-url
+    {
+        font-size: 12px;
+        font-weight: 300 !important;
+
+        margin: 0;
+
+        @include text_code();
+    }
+
+    .title
+    {
+        font-size: 36px;
+
+        margin: 0;
+
+        @include text_body();
+
+        small
+        {
+            font-size: 10px;
+
+            position: relative;
+            top: -5px;
+
+            display: inline-block;
+
+            margin: 0 0 0 5px;
+            padding: 2px 4px;
+
+            vertical-align: super;
+
+            border-radius: 57px;
+            background: $info-title-small-background-color;
+
+            pre
+            {
+                margin: 0;
+
+                @include text_headline($info-title-small-pre-font-color);
+            }
+        }
+    }
+
+    details {
+        background: rgba(83,86,90,.1);
+        border: 1px solid #53565a;
+        border-radius: 4px;
+        box-shadow: 0 0 3px rgba(0,0,0,.19);
+        padding: 5px 15px;
+    }
+
+    summary {
+        font-family: monospace;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    summary:focus {
+        outline: none;
+    }
+
+    .description {
+        pre {
+            font-size: 12px;
+            margin: 0;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+            border-radius: 4px;
+            background: #41444e;
+            overflow-wrap: break-word;
+            font-family: monospace;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        code {
+            color: inherit;
+            padding: initial;
+            font-weight: inherit;
+            background: inherit;
+        }
+    }
+}

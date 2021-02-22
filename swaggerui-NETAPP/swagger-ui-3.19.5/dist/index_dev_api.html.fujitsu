@@ -1,0 +1,212 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>ONTAP REST API</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="./swagger-ui-bundle.js"> </script>
+    <script src="./swagger-ui-standalone-preset.js"> </script>
+    <script>
+    function getCSRFToken() {
+      var postLogin = new XMLHttpRequest();
+      postLogin.open("POST", "/security/login");
+      postLogin.setRequestHeader("DOT-Request-CSRF-Token", "1");
+      postLogin.setRequestHeader("DOT-Request-Browser-Auth", "1");
+      postLogin.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 429) {
+          console.log("Failed to get a CSRF token because too many have been issued.");
+        }
+      }
+      postLogin.send(null);
+    }
+
+    function checkCSRFToken() {
+      if (!document.cookie.includes("DOT-CSRF")) {
+        getCSRFToken();
+      } else {
+        var getLogin = new XMLHttpRequest();
+        getLogin.open("GET", "/security/login");
+        getLogin.onreadystatechange = function () {
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 403) {
+            getCSRFToken();
+          }
+        }
+        getLogin.send(null);
+      }
+    }
+
+    function addCSRFTokenHeader(request) {
+      const match = document.cookie.match(/(^|; )DOT-CSRF=([^;]+)/);
+      if (match) {
+        request.headers["DOT-CSRF-Token"] = match[2];
+      } else {
+        console.log("No CSRF cookie was found. Requesting one now, but it will "
+                    + "be too late for the current request.");
+        getCSRFToken();
+      }
+      return request;
+    }
+
+    function getCSRFTokenOn403(response) {
+      if (response.status == 403) {
+        console.log("Request failed with 403. Getting a fresh CSRF token for next time.");
+        getCSRFToken();
+      }
+      return response;
+    }
+
+    function getLocale() {
+      if(navigator.userLanguage) {
+          return navigator.userLanguage;
+      } else if(navigator.language) {
+          return navigator.language;
+      } else if(navigator.browserLanguage) {
+          return navigator.browserLanguage;
+      } else {
+          return 'other';
+      }
+    }
+
+    window.onload = function() {
+      checkCSRFToken();
+
+      // Begin Swagger UI call region
+      const ui = SwaggerUIBundle({
+        url: "https://" + window.location.hostname + "/docs/api/swagger.yaml",
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        validatorUrl: null,
+        enableDownloadBar: false,
+        operationsSorter: "ntap",
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout",
+        requestInterceptor: addCSRFTokenHeader,
+        responseInterceptor: getCSRFTokenOn403
+      })
+      // End Swagger UI call region
+
+      if(getLocale() == "ja") {
+        document.getElementById("contact").setAttribute("href", "https://www.fujitsu.com/jp/support");
+        document.getElementById("contact").innerText = "https://www.fujitsu.com/jp/support";
+      } else {
+        document.getElementById("contact").setAttribute("href", "http://www.fujitsu.com/global/support");
+        document.getElementById("contact").innerText = "http://www.fujitsu.com/global/support";
+      }
+
+      window.ui = ui
+    }
+  </script>
+
+  <footer class="swagger-ui">
+    <div class="wrapper">
+
+    <h1>Copyright information</h1>
+
+    <p>Copyright © 2020 FUJITSU LIMITED. All rights reserved. </p>
+
+    <p>
+    No part of this document covered by copyright may be reproduced in any form or by any 
+    means—graphic, electronic, or mechanical, including photocopying, recording, taping, 
+    or storage in an electronic retrieval system—without prior written permission of the 
+    copyright owner.
+    </p>
+
+    <p>
+    Software derived from copyrighted Fujitsu material is subject to the following 
+    license and disclaimer: 
+    </p>
+
+    <p>
+    THIS SOFTWARE IS PROVIDED BY FUJITSU "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
+    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+    PARTICULAR PURPOSE, WHICH ARE HEREBY DISCLAIMED. IN NO EVENT SHALL FUJITSU BE LIABLE FOR ANY 
+    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+    NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
+    OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
+    USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    </p>
+
+    <p>
+    Fujitsu reserves the right to change any products described herein at any time, and without notice. 
+    Fujitsu assumes no responsibility or liability arising from the use of products described herein, 
+    except as expressly agreed to in writing by Fujitsu. The use or purchase of this product does not 
+    convey a license under any patent rights, trademark rights, or any other intellectual property 
+    rights of Fujitsu. 
+    </p>
+
+    <p>
+    The product described in this manual may be protected by one or more U.S. patents, 
+    foreign patents, or pending applications.
+    </p>
+
+    <p>
+    RESTRICTED RIGHTS LEGEND: Use, duplication, or disclosure by the government is subject to 
+    restrictions as set forth in subparagraph (c)(1)(ii) of the Rights in Technical Data and 
+    Computer Software clause at DFARS 252.277-7103 (October 1988) and FAR 52-227-19 (June 1987).
+    </p>
+
+    <h1>Trademark information</h1>
+
+    <p>
+    FUJITSU, FUJITSU logo, and ETERNUS are trademarks of Fujitsu. All other trademarks are the
+    property of their respective owners. © 2020 FUJITSU LIMITED.
+    </p>
+
+    <h1>Feedback</h1>
+
+    <p>How to send comments about documentation and receive update notifications</p>
+
+    <p>
+    You can help us to improve the quality of our documentation by sending us your feedback.
+    If you have suggestions for improving this document, send us your comments through support
+    site on the web.
+    </p>
+
+    <p><a id="contact" href="#">URL</a></p>
+
+    <p>
+    To help us direct your comments to the correct division, include in the subject line the
+    product name, version, and operating system.
+    </p>
+    
+
+    </div>
+  </footer>
+  </body>
+</html>

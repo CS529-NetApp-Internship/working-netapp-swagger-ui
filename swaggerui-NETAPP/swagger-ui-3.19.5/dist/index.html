@@ -1,0 +1,155 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>ONTAP REST API</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="./swagger-ui-bundle.js"> </script>
+    <script src="./swagger-ui-standalone-preset.js"> </script>
+    <script id="SwaggerYAML" type="application/json">REPLACEME</script>
+    <script>
+    window.onload = function() {
+      // Begin Swagger UI call region
+      const ui = SwaggerUIBundle({
+        spec: JSON.parse(document.getElementById('SwaggerYAML').innerHTML),
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        validatorUrl: null,
+        enableDownloadBar: false,
+        operationsSorter: "ntap",
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout"
+      })
+      // End Swagger UI call region
+
+      window.ui = ui
+    }
+  </script>
+
+  <footer class="swagger-ui">
+    <div class="wrapper">
+
+    <h1>Copyright information</h1>
+
+    <p>Copyright © 2020 NetApp, Inc. All rights reserved. Printed in the U.S. </p>
+
+    <p>
+    No part of this document covered by copyright may be reproduced in any form or by any
+    means—graphic, electronic, or mechanical, including photocopying, recording, taping,
+    or storage in an electronic retrieval system—without prior written permission of the
+    copyright owner.
+    </p>
+
+    <p>
+    Software derived from copyrighted NetApp material is subject to the following
+    license and disclaimer:
+    </p>
+
+    <p>
+    THIS SOFTWARE IS PROVIDED BY NETAPP "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
+    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+    PARTICULAR PURPOSE, WHICH ARE HEREBY DISCLAIMED. IN NO EVENT SHALL NETAPP BE LIABLE FOR ANY
+    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+    NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+    OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+    USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    </p>
+
+    <p>
+    NetApp reserves the right to change any products described herein at any time, and without notice.
+    NetApp assumes no responsibility or liability arising from the use of products described herein,
+    except as expressly agreed to in writing by NetApp. The use or purchase of this product does not
+    convey a license under any patent rights, trademark rights, or any other intellectual property
+    rights of NetApp.
+    </p>
+
+    <p>
+    The product described in this manual may be protected by one or more U.S. patents,
+    foreign patents, or pending applications.
+    </p>
+
+    <p>
+    RESTRICTED RIGHTS LEGEND: Use, duplication, or disclosure by the government is subject to
+    restrictions as set forth in subparagraph (c)(1)(ii) of the Rights in Technical Data and
+    Computer Software clause at DFARS 252.277-7103 (October 1988) and FAR 52-227-19 (June 1987).
+    </p>
+
+    <h1>Trademark information</h1>
+
+    <p>
+    NETAPP, the NETAPP logo, and the marks listed on the NetApp Trademarks page are trademarks of
+    NetApp, Inc. Other company and product names may be trademarks of their respective owners.
+    http://www.netapp.com/us/legal/netapptmlist.aspx
+    </p>
+
+    <h1>Feedback</h1>
+
+    <p>How to send comments about documentation and receive update notifications</p>
+
+    <p>
+    You can help us to improve the quality of our documentation by sending us your feedback.
+    You can receive automatic notification when production-level (GA/FCS) documentation is
+    initially released or important changes are made to existing production-level documents.
+    If you have suggestions for improving this document, send us your comments by email:
+    doccomments@netapp.com
+    </p>
+
+    <p>
+    To help us direct your comments to the correct division, include in the subject line the
+    product name, version, and operating system.
+    </p>
+
+    <p>
+    If you want to be notified automatically when production-level documentation is released
+    or important changes are made to existing production-level documents, follow Twitter
+    account @NetAppDoc.</p>
+
+    <p>You can also contact us in the following ways:</p>
+
+    <p>
+    NetApp, Inc., 495 East Java Drive, Sunnyvale, CA 94089 U.S.<br>
+    Telephone: +1 (408) 822-6000<br>
+    Fax: +1 (408) 822-4501<br>
+    Support telephone: +1 (888) 463-8277
+    </p>
+
+    </div>
+  </footer>
+  </body>
+</html>

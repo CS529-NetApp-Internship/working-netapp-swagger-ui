@@ -1,0 +1,13 @@
+// Methods
+// http://brand.netapp.com/docs/brand-identity-guide-02022017.pdf
+$_color-post: #007a33;
+$_color-get: #0067c5;
+$_color-put: #d45d00;
+$_color-delete: #9d2235;
+$_color-head: #9012fe;
+$_color-patch: #c99700;
+$_color-disabled: #ebebeb;
+$_color-options: #0d5aa7;
+$_color-long-description: #53565a;
+
+$methods: (post: $_color-post),(get: $_color-get), (put: $_color-put),(delete: $_color-delete),(head: $_color-head),(patch: $_color-patch),(deprecated: $_color-disabled),(options: $_color-options)
