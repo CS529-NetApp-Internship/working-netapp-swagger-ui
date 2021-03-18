@@ -31,9 +31,9 @@ export default class FilterContainer extends React.Component {
       <div>
         {filter === null || filter === false ? null :
           <div className="filter-container">
-            <Col className="filter wrapper element" mobile={12}>
-            <div className="element">🔍</div>
-              <input className="operation-filter-input" placeholder="Filter by tag" type="text"
+            <Col className="filter wrapper" mobile={12}>
+            <div className="filter-icon">🔍</div>
+              <input className="operation-filter-input" placeholder="Enter your search query here..." type="text"
                      onChange={this.onFilterChange} value={filter === true || filter === "true" ? "" : filter}
                      disabled={isLoading} style={inputStyle}/>
             </Col>
