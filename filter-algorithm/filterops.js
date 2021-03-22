@@ -3,7 +3,7 @@
 // }
 
 const fs = require("fs");
-const KEYWORD = "Expensive properties";
+const KEYWORD = "uuid";
 // let re = new RegExp(KEYWORD);
 
 let rawdata = fs.readFileSync("taggedops.json");
@@ -12,7 +12,10 @@ let taggedOps = JSON.parse(rawdata);
 for (const value in taggedOps) {
   let currentOperations = taggedOps[value].operations;
   taggedOps[value].operations = currentOperations.filter(
-    (op) => op.operation.description.indexOf(KEYWORD) !== -1
+    (op) => op.path.indexOf(KEYWORD) !== -1
   );
 }
-console.log(taggedOps.storage);
+console.log(taggedOps.storage)
+
+
+
