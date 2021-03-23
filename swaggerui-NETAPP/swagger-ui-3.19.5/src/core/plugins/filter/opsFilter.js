@@ -6,6 +6,11 @@ export default function(taggedOps, phrase) {
     const filteredOps = taggedOps.getIn([key.toString(),"operations"]).filter(o => o.get('path').indexOf(phrase) !== -1)
     // Set filtered operations to respective tag
     taggedOps = taggedOps.setIn([key.toString(),"operations"], filteredOps);
+
+    if(taggedOps.getIn([key.toString(),"operations"]).isEmpty())
+    {
+      taggedOps = taggedOps.delete(key.toString())
+    }
   }  
     return taggedOps
 }
