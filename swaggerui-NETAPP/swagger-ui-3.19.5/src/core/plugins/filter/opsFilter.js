@@ -3,11 +3,12 @@ export default function(taggedOps, phrase) {
   for(let [key, value] of taggedOps) {
     // getIn works similar to taggedOps.tag.operation.
     // Filter operations by path names
-    const filteredOps = taggedOps.getIn([key.toString(),"operations"]).filter(o => o.get('path').indexOf(phrase) !== -1)
+    const filteredOps = taggedOps.getIn([key.toString(),"operations"]).filter(o => o.get('path').indexOf(phrase) !== -1 || 
+    o.getIn(['operation', 'description']).indexOf(phrase) !== -1)
     // Set filtered operations to respective tag
     taggedOps = taggedOps.setIn([key.toString(),"operations"], filteredOps);
 
-    if(taggedOps.getIn([key.toString(),"operations"]).isEmpty())
+    if(taggedOps.getIn([key.toString(),"operations"]).isEmpty() && taggedOps.getIn([key.toString(),'tagDetails', 'description']).indexOf(phrase) === -1)
     {
       taggedOps = taggedOps.delete(key.toString())
     }
