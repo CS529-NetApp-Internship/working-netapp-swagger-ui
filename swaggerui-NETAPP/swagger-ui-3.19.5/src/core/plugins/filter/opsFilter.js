@@ -71,6 +71,6 @@ export default function(taggedOps, phrase) {
     if (value1.get("tagWeight") === value2.get("tagWeight")) {
       return 0;
     }
-  })
+  });
   return taggedOps; // return the sorted tags and their operations
 }
