@@ -11,8 +11,16 @@ export default class FilterContainer extends React.Component {
   }
 
   onFilterChange = (e) => {
-    const {target: {value}} = e
-    this.props.layoutActions.updateFilter(value)
+    this.setState({target: {value}})
+  }
+
+  onKeyPress = (e) => {
+    if (e.key === 'Enter')
+    {
+
+      const {target: {value}} = e
+      this.props.layoutActions.updateFilter(value)
+    }
   }
 
   render () {
@@ -32,8 +40,8 @@ export default class FilterContainer extends React.Component {
         {filter === null || filter === false ? null :
           <div className="filter-container">
             <Col className="filter wrapper" mobile={12}>
-              <input className="operation-filter-input" placeholder="Filter by tag" type="text"
-                     onChange={this.onFilterChange} value={filter === true || filter === "true" ? "" : filter}
+              <input className="operation-filter-input" placeholder="Search for operations" type="text"
+                     onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={filter === true || filter === "true" ? "" : filter}
                      disabled={isLoading} style={inputStyle}/>
             </Col>
           </div>
