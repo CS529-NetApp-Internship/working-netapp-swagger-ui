@@ -53,14 +53,14 @@ export default function(taggedOps, phrase) {
 
         let parameters = op.get("operation").get("parameters");
 
-        for (let x = 0; x < parameters.size; x++) {
-          if (parameters.get(x).has("schema")) {
-            let currentModelMatches = parameters.get(x).getIn("schema", "$ref").match(re)
-            if (currentModelMatches) {
-              modelMatches += currentModelMatches.size
-            }
-          }
-        }
+        // for (let x = 0; x < parameters.size; x++) {
+        //   if (parameters.get(x).has("schema")) {
+        //     let currentModelMatches = parameters.get(x).getIn("schema", "$ref").match(re)
+        //     if (currentModelMatches) {
+        //       modelMatches += currentModelMatches.size
+        //     }
+        //   }
+        // }
         console.log(modelMatches)
         // opWeight of path match = 100
         if (pathMatches) {
