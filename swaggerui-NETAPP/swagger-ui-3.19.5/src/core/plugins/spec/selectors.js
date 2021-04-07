@@ -258,7 +258,7 @@ export const taggedOperations = (state) => ({ getConfigs }) => {
       let sortFn = (typeof operationsSorter === "function" ? operationsSorter : sorters.operationsSorter[ operationsSorter ])
       let operations = (!sortFn ? ops : ops.sort(sortFn))
 
-      return Map({ tagDetails: tagDetails(state, tag), operations: operations })
+      return Map({ tagDetails: tagDetails(state, tag), operations: operations})
     })
 }
 
