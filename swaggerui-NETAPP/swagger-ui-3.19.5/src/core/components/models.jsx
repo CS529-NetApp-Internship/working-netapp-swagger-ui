@@ -30,7 +30,7 @@ export default class Models extends Component {
   }
 
   render(){
-    let { specSelectors, getComponent, layoutSelectors, layoutActions, getConfigs } = this.props
+    let { specSelectors, getComponent, layoutSelectors, layoutActions, getConfigs, fn } = this.props
     let definitions = specSelectors.definitions()
 
     let filter = layoutSelectors.currentFilter()
