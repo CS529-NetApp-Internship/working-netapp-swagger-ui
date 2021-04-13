@@ -38,7 +38,7 @@ export default class FilterContainer extends React.Component {
     return (
       <div>
         {filter === null || filter === false ? null :
-          <div className="filter-container">
+          <div className="filter-wrapper">
             <Col className="filter wrapper" mobile={12}>
             <div className="filter-icon">🔍</div>
               <input className="operation-filter-input" placeholder="Enter your search query here..." type="text"
