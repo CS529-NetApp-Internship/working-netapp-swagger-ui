@@ -45,7 +45,18 @@ export default class FilterContainer extends React.Component {
                      onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={filter === true || filter === "true" ? "" : filter}
                      disabled={isLoading} style={inputStyle}/>
             </Col>
+
+            
+            <input type="checkbox" id="ops" name="ops" value="Operations"/>
+            <label for="ops">Operations</label>
+            <input type="checkbox" id="tags" name="tags" value="Tags"/>
+            <label for="ops">Tags</label>
+            <input type="checkbox" id="defs" name="defs" value="Models"/>
+            <label for="defs">Models</label>
+
+
           </div>
+
         }
       </div>
     )
