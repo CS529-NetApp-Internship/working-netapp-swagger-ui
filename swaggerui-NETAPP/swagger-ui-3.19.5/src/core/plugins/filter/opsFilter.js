@@ -1,4 +1,117 @@
+import Fuse from "fuse.js";
 export default function(taggedOps, phrase) {
+  const data = [
+    {
+      title: "Old Man's War",
+      author: {
+        firstName: "John",
+        lastName: "Scalzi"
+      }
+    },
+    {
+      title: "The Lock Artist",
+      author: {
+        firstName: "Steve",
+        lastName: "Hamilton"
+      }
+    },
+    {
+      title: "HTML5",
+      author: {
+        firstName: "Remy",
+        lastName: "Sharp"
+      }
+    },
+    {
+      title: "Right Ho Jeeves",
+      author: {
+        firstName: "P.D",
+        lastName: "Woodhouse"
+      }
+    },
+    {
+      title: "The Code of the Wooster",
+      author: {
+        firstName: "P.D",
+        lastName: "Woodhouse"
+      }
+    },
+    {
+      title: "Thank You Jeeves",
+      author: {
+        firstName: "P.D",
+        lastName: "Woodhouse"
+      }
+    },
+    {
+      title: "The DaVinci Code",
+      author: {
+        firstName: "Dan",
+        lastName: "Brown"
+      }
+    },
+    {
+      title: "Angels & Demons",
+      author: {
+        firstName: "Dan",
+        lastName: "Brown"
+      }
+    },
+    {
+      title: "The Silmarillion",
+      author: {
+        firstName: "J.R.R",
+        lastName: "Tolkien"
+      }
+    },
+    {
+      title: "Syrup",
+      author: {
+        firstName: "Max",
+        lastName: "Barry"
+      }
+    },
+    {
+      title: "The Lost Symbol",
+      author: {
+        firstName: "Dan",
+        lastName: "Brown"
+      }
+    },
+    {
+      title: "The Book of Lies",
+      author: {
+        firstName: "Brad",
+        lastName: "Meltzer"
+      }
+    },
+    {
+      title: "Lamb",
+      author: {
+        firstName: "Christopher",
+        lastName: "Moore"
+      }
+    }
+  ];
+  const options = {
+    // isCaseSensitive: false,
+    // includeScore: false,
+    // shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: true,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: ["title", "author.firstName"]
+  };
+  const fuse = new Fuse(data, options);
+  const pattern = "lamb";
+  console.log(fuse.search(pattern));
+
   // create a reg expression using the phrase (case insensitive & matches all occurrences)
   let re = new RegExp(phrase, "ig");
   // iterate through key and value pairs within the taggedOps object:
