@@ -11,7 +11,7 @@ export default function(models, phrase) {
                 let matches = []
                 // Iterate through all the properties for the model
                 for (let [k, v] of properties){
-                    if (k.toString().match(re)){
+                    if (k.toString().match(re) || (v.has("description") && v.get("description").match(re))){
                         matches.push(k)
                     }
                 }
