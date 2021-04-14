@@ -6,25 +6,23 @@ export default function(models, phrase) {
         if(name.toString().match(re)) {
             modelWeight = 10
         }
-        else {
+        if(map.get("properties")){
             let properties = map.get("properties")
-            // Check that the property is not undefined
-            if(properties){
-                // Iterate through all the properties for the model
-                for (let [k, v] of properties){
-                    if (k.toString().match(re) || (v.get("description") && v.get("description").match(re))){
-                        if (k.toString().match(re)) {
-                            modelWeight += 5
-                        }
-                        else {
-                            modelWeight++
-                        }
+            // Iterate through all the properties for the model
+            for (let [k, v] of properties){
+                if (k.toString().match(re) || (v.get("description") && v.get("description").match(re))){
+                    if (k.toString().match(re)) {
+                        modelWeight += 5
                     }
-                }         
-            } else{
-                // Delete the model with undefined property
-                models = models.delete(name.toString())
-            }
+                    else {
+                        modelWeight++
+                    }
+                }
+            }         
+        }
+        else{
+            // Delete the model with undefined property
+            models = models.delete(name.toString())
         }
         if (modelWeight === 0) {
             models = models.delete(name.toString())
