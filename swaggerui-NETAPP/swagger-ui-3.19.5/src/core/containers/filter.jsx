@@ -47,14 +47,18 @@ export default class FilterContainer extends React.Component {
             </Col>
 
             <div className="checkbox-wrapper">
-                <input type="checkbox" id="ops" name="ops" value="Tags"/>
-                <label for="ops">Operations</label>
-
-                <input type="checkbox" id="tags" name="tags" value="Tags"/>
-                <label for="tags">Tags</label>
-
-                <input type="checkbox" id="models" name="models" value="Models"/>
-                <label for="models">Models</label>
+              <label>
+                <input type="checkbox"/>
+                Operations
+              </label>
+              <label>
+                <input type="checkbox"/>
+                Tags
+              </label>
+              <label>
+                <input type="checkbox"/>
+                Models
+              </label>
             </div>
 
 
