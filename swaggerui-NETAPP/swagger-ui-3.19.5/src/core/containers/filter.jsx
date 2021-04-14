@@ -47,6 +47,7 @@ export default class FilterContainer extends React.Component {
             </Col>
 
             <div className="checkbox-wrapper">
+              Filtering Options:
               <div className="singular-checkbox">
                 <label>
                   <input type="checkbox"/>
