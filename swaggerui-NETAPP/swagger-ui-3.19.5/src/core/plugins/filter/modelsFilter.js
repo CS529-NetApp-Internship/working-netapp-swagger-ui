@@ -15,7 +15,7 @@ export default function(models, phrase) {
                         modelWeight += 5
                     }
                     else {
-                        modelWeight++
+                        modelWeight += v.get("description").match(re).length
                     }
                 }
             }         
