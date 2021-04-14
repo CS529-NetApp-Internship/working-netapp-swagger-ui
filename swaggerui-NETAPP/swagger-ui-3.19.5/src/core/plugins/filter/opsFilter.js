@@ -1,4 +1,5 @@
-import Fuse from "fuse.js";
+import Fuse from "fuse.js/dist/fuse.min.js";
+
 export default function(taggedOps, phrase) {
   const data = [
     {
