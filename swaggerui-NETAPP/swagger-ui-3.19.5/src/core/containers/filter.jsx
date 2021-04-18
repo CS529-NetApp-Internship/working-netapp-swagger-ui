@@ -9,7 +9,10 @@ export default class FilterContainer extends React.Component {
     layoutActions: PropTypes.object.isRequired,
     getComponent: PropTypes.func.isRequired,
   }
-
+  getChckeboxValue = (event) => {
+      const value = event.target.value;
+      console.log(value)
+  }
   onFilterChange = (e) => {
     this.setState({target: {value}})
   }
@@ -50,7 +53,7 @@ export default class FilterContainer extends React.Component {
               Filtering Options:
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox"/>
+                  <input type="checkbox" onChange={this.getChckeboxValue.bind(this)}/>
                   Operations
                 </label>
               </div>
