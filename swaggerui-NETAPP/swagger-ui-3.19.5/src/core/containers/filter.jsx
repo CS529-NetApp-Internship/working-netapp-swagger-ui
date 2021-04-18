@@ -10,7 +10,7 @@ export default class FilterContainer extends React.Component {
     getComponent: PropTypes.func.isRequired,
   }
   getChckeboxValue = (event) => {
-      const value = event.target.value;
+      const value = event.target.checked;
       console.log(value)
   }
   onFilterChange = (e) => {
