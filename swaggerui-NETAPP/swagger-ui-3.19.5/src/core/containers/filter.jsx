@@ -9,10 +9,24 @@ export default class FilterContainer extends React.Component {
     layoutActions: PropTypes.object.isRequired,
     getComponent: PropTypes.func.isRequired,
   }
-  getChckeboxValue = (event) => {
-      const value = event.target.checked;
-      console.log(value)
-  }
+
+  getCheckboxValue = (e) => {
+      const value = e.target.checked;
+      const name = e.target.name;
+      console.log(name);
+      console.log(value);
+
+      if (name === 'ops-checkbox') {
+        console.log(name, "is", value)
+      }
+      if (name === 'tags-checkbox') {
+        console.log(name, "is", value)
+      }
+      if (name === 'models-checkbox') {
+        console.log(name, "is", value)
+      }
+    }
+
   onFilterChange = (e) => {
     this.setState({target: {value}})
   }
@@ -53,19 +67,19 @@ export default class FilterContainer extends React.Component {
               Filtering Options:
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" onChange={this.getChckeboxValue.bind(this)}/>
+                  <input type="checkbox" name="ops-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Operations
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox"/>
+                  <input type="checkbox" name="tags-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Tags
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox"/>
+                  <input type="checkbox" name="models-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Models
                 </label>
               </div>
