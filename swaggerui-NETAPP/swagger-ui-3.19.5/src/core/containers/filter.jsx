@@ -2,6 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 
 export default class FilterContainer extends React.Component {
+  constructor() {
+     super()
+     // initialize your options array on your state
+     this.state = {
+       options: []
+     }
+   }
 
   static propTypes = {
     specSelectors: PropTypes.object.isRequired,
@@ -11,21 +18,19 @@ export default class FilterContainer extends React.Component {
   }
 
   getCheckboxValue = (e) => {
-      const value = e.target.checked;
-      const name = e.target.name;
-      console.log(name);
-      console.log(value);
+    const options = this.state.options
+    let index
 
-      if (name === 'ops-checkbox') {
-        console.log(name, "is", value)
-      }
-      if (name === 'tags-checkbox') {
-        console.log(name, "is", value)
-      }
-      if (name === 'models-checkbox') {
-        console.log(name, "is", value)
-      }
+    if (e.target.checked) {
+      options.push(+e.target.value)
+    } else {
+      index = options.indexOf(+e.target.value)
+      options.splice(index, 1)
     }
+
+    this.setState({options: options})
+    console.log("OPTIONS SELECTED", options)
+  }
 
   onFilterChange = (e) => {
     this.setState({target: {value}})
@@ -67,27 +72,24 @@ export default class FilterContainer extends React.Component {
               Filtering Options:
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" name="ops-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={1} name="ops-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Operations
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" name="tags-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={2} name="tags-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Tags
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" name="models-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={3} name="models-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
                   Models
                 </label>
               </div>
             </div>
-
-
-          </div>
-
+        </div>
         }
       </div>
     )
