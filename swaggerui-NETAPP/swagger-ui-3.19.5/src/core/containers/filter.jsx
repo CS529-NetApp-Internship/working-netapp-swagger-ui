@@ -6,7 +6,7 @@ export default class FilterContainer extends React.Component {
      super()
      // initialize your options array on your state
      this.state = {
-       options: []
+       options: {opsBox: false, tagsBox: false, modelsBox: false}
      }
    }
 
@@ -22,10 +22,9 @@ export default class FilterContainer extends React.Component {
     let index
 
     if (e.target.checked) {
-      options.push(+e.target.value)
+      options[e.target.name] = true
     } else {
-      index = options.indexOf(+e.target.value)
-      options.splice(index, 1)
+      options[e.target.name] = false
     }
 
     this.setState({options: options})
@@ -72,19 +71,19 @@ export default class FilterContainer extends React.Component {
               Filtering Options:
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" value={1} name="ops-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={1} name="opsBox" onChange={this.getCheckboxValue.bind(this)}/>
                   Operations
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" value={2} name="tags-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={2} name="tagsBox" onChange={this.getCheckboxValue.bind(this)}/>
                   Tags
                 </label>
               </div>
               <div className="singular-checkbox">
                 <label>
-                  <input type="checkbox" value={3} name="models-checkbox" onChange={this.getCheckboxValue.bind(this)}/>
+                  <input type="checkbox" value={3} name="modelsBox" onChange={this.getCheckboxValue.bind(this)}/>
                   Models
                 </label>
               </div>
