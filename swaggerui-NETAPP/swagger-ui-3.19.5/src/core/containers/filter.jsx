@@ -6,7 +6,7 @@ export default class FilterContainer extends React.Component {
      super()
      // initialize your options array on your state
      this.state = {
-       options: {opsBox: false, tagsBox: false, modelsBox: false}, opsOptions: {opsPaths: false, opsDesc: false}
+       options: {opsBox: false, tagsBox: false, modelsBox: false}, opsOptions: {opsPaths: false, opsDescs: false}
      }
    }
 
@@ -29,6 +29,20 @@ export default class FilterContainer extends React.Component {
 
     this.setState({options: options})
     console.log("OPTIONS SELECTED", options)
+  }
+
+  getOpsCheckboxValues = (e) => {
+    const opsOptions = this.state.opsOptions
+    let index
+
+    if (e.target.checked) {
+      opsOptions[e.target.name] = true
+    } else {
+      opsOptions[e.target.name] = false
+    }
+
+    this.setState({opsOptions: opsOptions})
+    console.log("OPS OPTIONS SELECTED", opsOptions)
   }
 
   onFilterChange = (e) => {
@@ -85,6 +99,18 @@ export default class FilterContainer extends React.Component {
                 <label>
                   <input type="checkbox" value={3} name="modelsBox" onChange={this.getCheckboxValue.bind(this)}/>
                   Models
+                </label>
+              </div>
+              <div className="singular-checkbox">
+                <label>
+                  <input type="checkbox" value={4} name="opsDescs" onChange={this.getOpsCheckboxValues.bind(this)}/>
+                  Op Descs
+                </label>
+              </div>
+              <div className="singular-checkbox">
+                <label>
+                  <input type="checkbox" value={5} name="opsPaths" onChange={this.getOpsCheckboxValues.bind(this)}/>
+                  Op Paths
                 </label>
               </div>
             </div>
