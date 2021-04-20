@@ -6,7 +6,7 @@ export default class FilterContainer extends React.Component {
      super()
      // initialize your options array on your state
      this.state = {
-       options: {opsBox: false, tagsBox: false, modelsBox: false}
+       options: {opsBox: false, tagsBox: false, modelsBox: false}, opsOptions: {opsPaths: false, opsDesc: false}
      }
    }
 
