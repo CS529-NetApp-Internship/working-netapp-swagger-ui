@@ -1,29 +1,35 @@
+function recursivesearch(map,re){
+    function search(map,re){
+        if(map.has("properties")){
+            let properties = map.get("properties")
+
+            for (let [k, v] of properties){
+                if (k.toString().match(re)){
+                    propertyWeight += 5
+                }
+                else{
+                    search(v,re)
+                }
+            }         
+        }
+    }
+    var propertyWeight = 0
+    search(map,re)
+    return propertyWeight
+}
+
 export default function(models, phrase) {
 
     let re = new RegExp(phrase, "ig")
     for (let [name,map] of models){
         let modelWeight = 0
         if(name.toString().match(re)) {
-            modelWeight = 10
+            modelWeight = 100
         }
-        if(map.get("properties")){
-            let properties = map.get("properties")
-            // Iterate through all the properties for the model
-            for (let [k, v] of properties){
-                if (k.toString().match(re) || (v.get("description") && v.get("description").match(re))){
-                    if (k.toString().match(re)) {
-                        modelWeight += 5
-                    }
-                    else {
-                        modelWeight += v.get("description").match(re).length
-                    }
-                }
-            }         
-        }
-        else{
-            // Delete the model with undefined property
-            models = models.delete(name.toString())
-        }
+
+        let propertyWeight = recursivesearch(map,phrase)
+        modelWeight += propertyWeight
+
         if (modelWeight === 0) {
             models = models.delete(name.toString())
         }
@@ -45,4 +51,24 @@ export default function(models, phrase) {
           return 0
         }
       })
+}
+
+function recursivesearch(map,re){
+    function search(map,re){
+        if(map.has("properties")){
+            let properties = map.get("properties")
+
+            for (let [k, v] of properties){
+                if (k.toString().match(re)){
+                    modelWeight += 5
+                }
+                else{
+                    search(v,re)
+                }
+            }         
+        }
+    }
+    var modelWeight = 0
+    search(map,re)
+    return modelWeight
 }
