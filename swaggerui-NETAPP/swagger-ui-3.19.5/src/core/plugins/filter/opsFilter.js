@@ -2,11 +2,11 @@ import Fuse from "fuse-immutable";
 
 export default function(taggedOps, phrase) {
   var start = performance.now();
-  const DEFAULT_KEYS = ["path", "method", "operation.description"];
+  const DEFAULT_KEYS = ["path", "operation.description"];
   const options = {
     isCaseSensitive: false,
     includeScore: false,
-    shouldSort: true,
+    shouldSort: false,
     includeMatches: false,
     // TODO: decide on whether to keep this or not
     findAllMatches: true,
@@ -18,7 +18,6 @@ export default function(taggedOps, phrase) {
     ignoreLocation: true,
     keys: DEFAULT_KEYS
   };
-  const data = taggedOps.getIn(["cloud", "operations"]);
 
   // console.log(JSON.stringify(results));
 
@@ -27,6 +26,7 @@ export default function(taggedOps, phrase) {
     let ops = value.get("operations"); // get the operations from the ops
     if (ops.size !== 0) {
       const fuse = new Fuse(ops, options);
+
       let filterResults = fuse.search(phrase);
       // Set filtered operations to respective tag
       taggedOps = taggedOps.setIn([key, "operations"], filterResults);
@@ -40,7 +40,6 @@ export default function(taggedOps, phrase) {
     //   taggedOps = taggedOps.setIn([key.toString(), "tagWeight"], tagWeight);
     // }
   }
-
   var end = performance.now();
   console.log(end - start);
   return taggedOps; // return the sorted tags and their operations
