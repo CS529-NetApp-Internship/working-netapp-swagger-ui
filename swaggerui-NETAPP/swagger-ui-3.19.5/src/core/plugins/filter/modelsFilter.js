@@ -52,23 +52,3 @@ export default function(models, phrase) {
         }
       })
 }
-
-function recursivesearch(map,re){
-    function search(map,re){
-        if(map.has("properties")){
-            let properties = map.get("properties")
-
-            for (let [k, v] of properties){
-                if (k.toString().match(re)){
-                    modelWeight += 5
-                }
-                else{
-                    search(v,re)
-                }
-            }         
-        }
-    }
-    var modelWeight = 0
-    search(map,re)
-    return modelWeight
-}
