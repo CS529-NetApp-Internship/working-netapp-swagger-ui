@@ -101,18 +101,23 @@ export default class FilterContainer extends React.Component {
                   Models
                 </label>
               </div>
-              <div className="singular-checkbox">
-                <label>
-                  <input type="checkbox" value={4} name="opsDescs" onChange={this.getOpsCheckboxValues.bind(this)}/>
-                  Op Descs
-                </label>
+              <div className="sub-checkbox-wrapper">
+                <div className="singular-checkbox">
+                  <label>
+                    <input type="checkbox" value={4} name="opsDescs" onChange={this.getOpsCheckboxValues.bind(this)}/>
+                    Op Descs
+                  </label>
+                </div>
               </div>
-              <div className="singular-checkbox">
-                <label>
-                  <input type="checkbox" value={5} name="opsPaths" onChange={this.getOpsCheckboxValues.bind(this)}/>
-                  Op Paths
-                </label>
-              </div>
+              <div className="sub-checkbox-wrapper">
+                <div className="singular-checkbox">
+                  <label>
+                    <input type="checkbox" value={5} name="opsPaths" onChange={this.getOpsCheckboxValues.bind(this)}/>
+                    Op Paths
+                  </label>
+                </div>
+                
+                </div>
             </div>
         </div>
         }

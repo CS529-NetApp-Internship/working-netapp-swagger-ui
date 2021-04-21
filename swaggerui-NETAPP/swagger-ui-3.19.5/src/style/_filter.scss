@@ -22,8 +22,13 @@
   padding-left:125px;
   vertical-align: middle;
 
+  .sub-checkbox-wrapper {
+    padding-top:10px;
+    padding-left:135px;
+    vertical-align: middle;
+  }
+
   .singular-checkbox {
-    padding-right:45px;
     display: inline-block;
     overflow: hidden;
   }
