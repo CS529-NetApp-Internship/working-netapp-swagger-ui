@@ -51,10 +51,17 @@ export default class Operations extends React.Component {
     let opsOptions = layoutSelectors.currentOpsOptions()
     console.log("FINALOPSOPSOPTIONS:", opsOptions)
 
-    if (filter) {
-      if (filter !== true) {
-        taggedOps = fn.opsFilter(taggedOps, filter)
 
+    if (options) {
+      console.log("THEYRE HERE", options)
+      if (options['opsBox'] === true) {
+        console.log("ITS TRUE AND TRIED the opsBOX")
+        if (filter) {
+          if (filter !== true) {
+            taggedOps = fn.opsFilter(taggedOps, filter)
+
+          }
+        }
       }
     }
 
