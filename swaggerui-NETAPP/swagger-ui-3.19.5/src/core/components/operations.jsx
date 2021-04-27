@@ -48,8 +48,7 @@ export default class Operations extends React.Component {
 
     if (filter) {
       if (filter !== true) {
-        taggedOps = fn.opsFilter(taggedOps, filter)
-        
+          taggedOps = fn.opsFilter(taggedOps, filter)
       }
     }
 

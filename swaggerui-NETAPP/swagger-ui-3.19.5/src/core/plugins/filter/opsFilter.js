@@ -1,47 +1,58 @@
 export default function(taggedOps, phrase) {
-  // create a reg expression using the phrase (case insensitive & matches all occurrences)
-  let re = new RegExp(phrase, "ig");
-  // iterate through key and value pairs within the taggedOps object:
-  for (let [key, value] of taggedOps) {
-    let tagWeight = 0; // used to track weight of the tag (big category)
-    let keyMatches = key.toString().match(re); // find number of matches in the tag
+  // return taggedOps.filter((tagObj, tag) => tag.indexOf(phrase) !== -1)
 
-    // if the tag matches the search phrase give it a higher weight:
+  // create regular expression using the phrase
+  // the modifiers ig mean that the regex will be
+  // case insensitive and match all occurrences
+
+  let re = new RegExp(phrase, "ig");
+  // iterate through key and value pairs within the object
+  for (let [key, value] of taggedOps) {
+    // used to track weight of the tag (big category)
+    let tagWeight = 0;
+    let keyMatches = key.toString().match(re);
+    // let tagDescMatches = value
+    //   .get("tagDetails")
+    //   .get("description")
+    //   .match(re);
     if (keyMatches) {
       tagWeight += 1000;
     }
-
-    let filteredOps = value.get("operations"); // get the operations from the filteredOps
-
+    // Count matches in every operation and
+    // sort the list of operations
+    let filteredOps = value.get("operations");
     if (filteredOps.size !== 0) {
       for (let i = 0; i < filteredOps.size; i++) {
-        let op = filteredOps.get(i); // get the current operation from filteredOps
-        // set the base value of variable that will hold the ranking score of a operation
+        let op = filteredOps.get(i);
         let opWeight = 0;
-
-        let pathMatches = op.get("path").match(re); // list of matches in path key (eight )
+        // list of matches in path key
+        let pathMatches = op.get("path").match(re);
         // list of matches in ["operation", "description"] key
         let descMatches = op.getIn(["operation", "description"]).match(re);
 
-        // update opWeight per the matches found:
+        let modelMatches = 0;
+        // opWeight of path match = 100
         if (pathMatches) {
-          opWeight += pathMatches.length * 100; // opWeight of path match = 100
+          opWeight += pathMatches.length * 100;
         }
+        // opWeight of description match = 1
         if (descMatches) {
-          opWeight += descMatches.length; // opWeight of description match = 1
+          opWeight += descMatches.length;
+        }
+        // opWeight of model match = 50
+        if (modelMatches) {
+          opWeight += modelMatches.length * 50;
         }
 
-        // see if the current operation contained any matches:
         if (opWeight === 0) {
-          filteredOps = filteredOps.delete(i); // remove the operation with zero matches
+          // remove the operation with zero matches
+          filteredOps = filteredOps.delete(filteredOps.indexOf(op));
         } else {
-          // add the opWeight key to the operation info
+          // add the opWeight key to the operation
           filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
-          tagWeight += opWeight; // update the overall tag weight to reflect the operation within it's weight
+          tagWeight += opWeight;
         }
       }
-
-      // sort the tag's operations by weight:
       filteredOps = filteredOps.sort(function(value1, value2) {
         if (value1.get("opWeight") > value2.get("opWeight")) {
           return -1;

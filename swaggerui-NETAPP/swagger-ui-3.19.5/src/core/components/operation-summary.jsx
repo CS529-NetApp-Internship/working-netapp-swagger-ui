@@ -43,6 +43,7 @@ export default class OperationSummary extends PureComponent {
       showSummary,
       operationId,
       allowTryItOut,
+      currentVersion,
       originalOperationId,
       displayOperationId,
     } = operationProps.toJS()
@@ -71,7 +72,7 @@ export default class OperationSummary extends PureComponent {
         }
 
         {
-         introduced == "9.9"
+         introduced == currentVersion
           ?
             <div><b>{`New in ${introduced}`}</b></div>
           :
