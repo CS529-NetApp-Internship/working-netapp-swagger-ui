@@ -29,6 +29,8 @@ export default class FilterContainer extends React.Component {
 
     this.setState({options: options})
     console.log("OPTIONS SELECTED", options)
+    this.props.layoutActions.updateOptions(options)
+
   }
 
   getOpsCheckboxValues = (e) => {
@@ -65,6 +67,7 @@ export default class FilterContainer extends React.Component {
     const isLoading = specSelectors.loadingStatus() === "loading"
     const isFailed = specSelectors.loadingStatus() === "failed"
     const filter = layoutSelectors.currentFilter()
+    const options = layoutSelectors.currentOptions()
 
     const inputStyle = {}
     if (isFailed) inputStyle.color = "red"
@@ -116,7 +119,7 @@ export default class FilterContainer extends React.Component {
                     Op Paths
                   </label>
                 </div>
-                
+
                 </div>
             </div>
         </div>

@@ -45,11 +45,14 @@ export default class Operations extends React.Component {
     } = getConfigs()
 
     let filter = layoutSelectors.currentFilter()
+    console.log("FINALFILTER:", filter)
+    let options = layoutSelectors.currentOptions()
+    console.log("FINALOPTIONS:", options)
 
     if (filter) {
       if (filter !== true) {
         taggedOps = fn.opsFilter(taggedOps, filter)
-        
+
       }
     }
 

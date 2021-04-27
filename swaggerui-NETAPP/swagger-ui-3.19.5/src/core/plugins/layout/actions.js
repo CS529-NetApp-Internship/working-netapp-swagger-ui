@@ -2,6 +2,7 @@ import { normalizeArray } from "core/utils"
 
 export const UPDATE_LAYOUT = "layout_update_layout"
 export const UPDATE_FILTER = "layout_update_filter"
+export const UPDATE_OPTIONS = "layout_update_options"
 export const UPDATE_MODE = "layout_update_mode"
 export const SHOW = "layout_show"
 
@@ -18,6 +19,14 @@ export function updateFilter(filter) {
   return {
     type: UPDATE_FILTER,
     payload: filter
+  }
+}
+
+export function updateOptions(options) {
+  console.log("2. actions.jsx", options)
+  return {
+    type: UPDATE_OPTIONS,
+    payload: options
   }
 }
 
