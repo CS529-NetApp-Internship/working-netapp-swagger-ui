@@ -31,18 +31,6 @@ export default function(taggedOps, phrase) {
         let descMatches = op.getIn(["operation", "description"]).match(re);
 
         let modelMatches = 0;
-
-        let parameters = op.get("operation").get("parameters");
-
-        // for (let x = 0; x < parameters.size; x++) {
-        //   if (parameters.get(x).has("schema")) {
-        //     let currentModelMatches = parameters.get(x).getIn("schema", "$ref").match(re)
-        //     if (currentModelMatches) {
-        //       modelMatches += currentModelMatches.size
-        //     }
-        //   }
-        // }
-        console.log(modelMatches)
         // opWeight of path match = 100
         if (pathMatches) {
           opWeight += pathMatches.length * 100;
@@ -87,7 +75,6 @@ export default function(taggedOps, phrase) {
       taggedOps = taggedOps.setIn([key.toString(), "tagWeight"], tagWeight);
     }
     
-    // console.log(JSON.stringify(filteredOps))
     // sort tagweights here
   }
   taggedOps = taggedOps.sort(function(value1, value2) {
@@ -101,6 +88,5 @@ export default function(taggedOps, phrase) {
       return 0;
     }
   })
-  // console.log(JSON.stringify(taggedOps))
   return taggedOps;
 }
