@@ -229,7 +229,7 @@ export default class ParameterRow extends Component {
           }
 
           {
-            param.get("x-ntap-introduced") == "9.9"
+            param.get("x-ntap-introduced") == specSelectors.currentVersion()
             ?
               <p><b>{`New in ${param.get("x-ntap-introduced")}`}</b></p>
             :
