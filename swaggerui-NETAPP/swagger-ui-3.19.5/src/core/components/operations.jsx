@@ -48,6 +48,8 @@ export default class Operations extends React.Component {
     console.log("FINALFILTER:", filter)
     let options = layoutSelectors.currentOptions()
     console.log("FINALOPTIONS:", options)
+    let opsOptions = layoutSelectors.currentOpsOptions()
+    console.log("FINALOPSOPSOPTIONS:", opsOptions)
 
     if (filter) {
       if (filter !== true) {

@@ -45,6 +45,7 @@ export default class FilterContainer extends React.Component {
 
     this.setState({opsOptions: opsOptions})
     console.log("OPS OPTIONS SELECTED", opsOptions)
+    this.props.layoutActions.updateOpsOptions(opsOptions)
   }
 
   onFilterChange = (e) => {
@@ -68,6 +69,7 @@ export default class FilterContainer extends React.Component {
     const isFailed = specSelectors.loadingStatus() === "failed"
     const filter = layoutSelectors.currentFilter()
     const options = layoutSelectors.currentOptions()
+    const opsOptions = layoutSelectors.currentOpsOptions()
 
     const inputStyle = {}
     if (isFailed) inputStyle.color = "red"
