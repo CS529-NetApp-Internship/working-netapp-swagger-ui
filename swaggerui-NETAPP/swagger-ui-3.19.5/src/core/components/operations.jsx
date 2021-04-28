@@ -54,16 +54,18 @@ export default class Operations extends React.Component {
 
     if (options) {
       // console.log("THEYRE HERE", options)
-      if (options['opsBox'] === true) {
-        // console.log("ITS TRUE AND TRIED the opsBOX")
-        if (filter) {
-          if (filter !== true) {
-            taggedOps = fn.opsFilter(taggedOps, filter, opsOptions);
-
+      if (filter) {
+        if (filter !== true) {
+          if (options['opsBox'] === true) {
+            // console.log("ITS TRUE AND TRIED the opsBOX")
+                taggedOps = fn.opsFilter(taggedOps, filter, opsOptions);
           }
+          if (options['tagsBox'] === true) {
+            taggedOps = fn.tagsFilter(taggedOps, filter);
         }
       }
     }
+  }
 
     if (maxDisplayedTags && !isNaN(maxDisplayedTags) && maxDisplayedTags >= 0) {
       taggedOps = taggedOps.slice(0, maxDisplayedTags)
