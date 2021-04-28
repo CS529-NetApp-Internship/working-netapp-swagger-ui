@@ -28,7 +28,7 @@ export default class FilterContainer extends React.Component {
     }
 
     this.setState({options: options})
-    console.log("OPTIONS SELECTED", options)
+    // console.log("OPTIONS SELECTED", options)
     this.props.layoutActions.updateOptions(options)
 
   }
@@ -44,7 +44,7 @@ export default class FilterContainer extends React.Component {
     }
 
     this.setState({opsOptions: opsOptions})
-    console.log("OPS OPTIONS SELECTED", opsOptions)
+    // console.log("OPS OPTIONS SELECTED", opsOptions)
     this.props.layoutActions.updateOpsOptions(opsOptions)
   }
 

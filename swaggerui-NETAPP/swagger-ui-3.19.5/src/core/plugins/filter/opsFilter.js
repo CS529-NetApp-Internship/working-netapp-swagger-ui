@@ -1,6 +1,6 @@
-export default function(taggedOps, phrase) {
+export default function(taggedOps, phrase, opsOptions) {
   // return taggedOps.filter((tagObj, tag) => tag.indexOf(phrase) !== -1)
-
+  console.log(opsOptions);
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
   // case insensitive and match all occurrences
@@ -25,23 +25,31 @@ export default function(taggedOps, phrase) {
       for (let i = 0; i < filteredOps.size; i++) {
         let op = filteredOps.get(i);
         let opWeight = 0;
-        // list of matches in path key
-        let pathMatches = op.get("path").match(re);
-        // list of matches in ["operation", "description"] key
-        let descMatches = op.getIn(["operation", "description"]).match(re);
 
-        let modelMatches = 0;
-        // opWeight of path match = 100
-        if (pathMatches) {
-          opWeight += pathMatches.length * 100;
+        // check if opsPath checkbox is checked and
+        // count matches there
+        if (opsOptions.opsPaths) {
+          // list of matches in path key
+          let pathMatches = op.get("path").match(re);
+
+          // opWeight of path match = 100
+          if (pathMatches) {
+            opWeight += pathMatches.length * 100;
+          }
         }
-        // opWeight of description match = 1
-        if (descMatches) {
-          opWeight += descMatches.length;
-        }
-        // opWeight of model match = 50
-        if (modelMatches) {
-          opWeight += modelMatches.length * 50;
+
+        // TODO: add condition to check if options is undefined
+
+        // check if opsDescs checkbox is checked and
+        // count matches there
+        if (opsOptions.opsDescs) {
+          // list of matches in ["operation", "description"] key
+          let descMatches = op.getIn(["operation", "description"]).match(re);
+
+          // opWeight of description match = 1
+          if (descMatches) {
+            opWeight += descMatches.length;
+          }
         }
 
         if (opWeight === 0) {
