@@ -19,13 +19,8 @@ export default class FilterContainer extends React.Component {
 
   getCheckboxValue = (e) => {
     const options = this.state.options
-    let index
-
-    if (e.target.checked) {
-      options[e.target.name] = true
-    } else {
-      options[e.target.name] = false
-    }
+  
+    options[e.target.name] = e.target.checked
 
     this.setState({options: options})
     // console.log("OPTIONS SELECTED", options)
