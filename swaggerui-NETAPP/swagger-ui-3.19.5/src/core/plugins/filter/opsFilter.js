@@ -42,6 +42,14 @@ export default function(taggedOps, phrase, options) {
             opWeight += descMatches.length;
           }
 
+        if (opWeight === 0) {
+          // remove the operation with zero matches
+          filteredOps = filteredOps.delete(filteredOps.indexOf(op));
+          i -= 1;
+        } else {
+          // add the opWeight key to the operation
+          filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
+          tagWeight += opWeight;
         }
 
           if (options["modelsBox"]) {
