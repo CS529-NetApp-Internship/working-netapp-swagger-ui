@@ -29,7 +29,6 @@ export default class FilterContainer extends React.Component {
     options[e.target.name] = e.target.checked
     console.log("OPS", options)
     this.setState({options: options})
-    // console.log("OPTIONS SELECTED", options)
     this.props.layoutActions.updateOptions(options)
 
   }
@@ -40,7 +39,6 @@ export default class FilterContainer extends React.Component {
     endpointsOptions[e.target.name] = e.target.checked;
     this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: endpointsOptions}}))
     console.log("NEW OPTIONS", this.state.options);
-    //this.setState({options: {endpointsOptions: {endpointsOptions}});
   }
 
   getMethodsValue = (e) => {
@@ -48,7 +46,6 @@ export default class FilterContainer extends React.Component {
     methodOptions[e.target.name] = e.target.checked;
     this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: {...prevState.options.endpointsOptions, methodOptions: methodOptions}}}))
     console.log("NEW OPTIONS", this.state.options);
-    //this.setState({options: {endpointsOptions: {endpointsOptions}});
   }
 
   onFilterChange = (e) => {
@@ -100,7 +97,6 @@ export default class FilterContainer extends React.Component {
                     Operations Keyword Search
                   </label>
                 </div>
-                //endpoints
                 {this.state.options.endpoints === true &&
                   <div className="checkbox-wrapper">
                     <div className="singular-checkbox">
@@ -123,7 +119,6 @@ export default class FilterContainer extends React.Component {
                         Method
                       </label>
                     </div>
-                    //method
                     {this.state.options.endpointsOptions.method === true &&
                       <div className="checkbox-wrapper">
                         <div className="singular-checkbox">
@@ -161,11 +156,9 @@ export default class FilterContainer extends React.Component {
                           </label>
                         </div>
 
-
                     </div>}
 
                   </div>}
-                  ...
                 <div className="singular-checkbox">
                   <label>
                     <input type="checkbox" value={1} name="models" onChange={this.getCheckboxValue.bind(this)}/>
