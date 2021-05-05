@@ -1,6 +1,5 @@
-export default function(taggedOps, phrase, opsOptions) {
+export default function(taggedOps, phrase, options) {
   // return taggedOps.filter((tagObj, tag) => tag.indexOf(phrase) !== -1)
-  console.log(opsOptions);
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
   // case insensitive and match all occurrences
@@ -28,21 +27,13 @@ export default function(taggedOps, phrase, opsOptions) {
 
         // check if opsPath checkbox is checked and
         // count matches there
-        if (opsOptions.opsPaths) {
           // list of matches in path key
           let pathMatches = op.get("path").match(re);
-
-          // opWeight of path match = 100
+          if(options["opsBox"]) {
+             // opWeight of path match = 100
           if (pathMatches) {
             opWeight += pathMatches.length * 100;
           }
-        }
-
-        // TODO: add condition to check if options is undefined
-
-        // check if opsDescs checkbox is checked and
-        // count matches there
-        if (opsOptions.opsDescs) {
           // list of matches in ["operation", "description"] key
           let descMatches = op.getIn(["operation", "description"]).match(re);
 
@@ -50,16 +41,37 @@ export default function(taggedOps, phrase, opsOptions) {
           if (descMatches) {
             opWeight += descMatches.length;
           }
-        }
 
         if (opWeight === 0) {
           // remove the operation with zero matches
           filteredOps = filteredOps.delete(filteredOps.indexOf(op));
+          i -= 1;
         } else {
           // add the opWeight key to the operation
           filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
           tagWeight += opWeight;
         }
+
+          if (options["modelsBox"]) {
+            if (op.get("operation").has("responses")) {
+              for (let [key2, value2] of op.getIn(["operation", "responses"])) {
+                  if (value2.getIn(["schema", "$ref"], " ").match(re)) {
+                    opWeight += 50;
+                  }
+                    
+                }
+              }
+            }
+            if (opWeight === 0) {
+              // remove the operation with zero matches
+              filteredOps = filteredOps.delete(filteredOps.indexOf(op));
+              i--;
+            } else {
+              // add the opWeight key to the operation
+              filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
+              tagWeight += opWeight;
+            }
+          }
       }
       filteredOps = filteredOps.sort(function(value1, value2) {
         if (value1.get("opWeight") > value2.get("opWeight")) {
@@ -72,7 +84,7 @@ export default function(taggedOps, phrase, opsOptions) {
           return 0;
         }
       });
-    }
+    
     // Set filtered operations to respective tag
     taggedOps = taggedOps.setIn([key.toString(), "operations"], filteredOps);
 
@@ -83,17 +95,16 @@ export default function(taggedOps, phrase, opsOptions) {
       taggedOps = taggedOps.setIn([key.toString(), "tagWeight"], tagWeight);
     }
   }
-  // sort the tags by weight:
-  taggedOps = taggedOps.sort(function(value1, value2) {
-    if (value1.get("tagWeight") > value2.get("tagWeight")) {
-      return -1;
-    }
-    if (value1.get("tagWeight") < value2.get("tagWeight")) {
-      return 1;
-    }
-    if (value1.get("tagWeight") === value2.get("tagWeight")) {
-      return 0;
-    }
-  });
-  return taggedOps; // return the sorted tags and their operations
+    taggedOps = taggedOps.sort(function(value1, value2) {
+      if (value1.get("tagWeight") > value2.get("tagWeight")) {
+        return -1;
+      }
+      if (value1.get("tagWeight") < value2.get("tagWeight")) {
+        return 1;
+      }
+      if (value1.get("tagWeight") === value2.get("tagWeight")) {
+        return 0;
+      }
+    });
+    return taggedOps; // return the sorted tags and their operations
 }
