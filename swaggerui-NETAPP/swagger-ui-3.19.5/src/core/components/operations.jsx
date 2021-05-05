@@ -35,6 +35,7 @@ export default class Operations extends React.Component {
     } = this.props
 
     let taggedOps = specSelectors.taggedOperations()
+    let definitions = specSelectors.definitions()
 
     const OperationContainer = getComponent("OperationContainer", true)
     const OperationTag = getComponent("OperationTag")
@@ -55,9 +56,13 @@ export default class Operations extends React.Component {
       // console.log("THEYRE HERE", options)
       if (filter) {
         if (filter !== true) {
-          if (options['endpoints'] === true || options['modelsBox'] === true) {
+          if (options['endpoints'] === true) {
             // console.log("ITS TRUE AND TRIED the opsBOX")
-                taggedOps = fn.opsFilter(taggedOps, filter, options, radioValue);
+                taggedOps = fn.opsFilter(taggedOps, filter, options, definitions, radioValue);
+          }
+          if (radioValue === "models") {
+            definitions = fn.modelsFilter(definitions, filter);
+            taggedOps = fn.opsFilter(taggedOps, filter, options, definitions, radioValue);
           }
       }
     }

@@ -37,9 +37,10 @@ export default class Models extends Component {
 
     let options = layoutSelectors.currentOptions()
 
+    let radioValue = layoutSelectors.radioValue()
+
     if (options) {
-      // console.log("THEYRE HERE", options)
-      if (options['modelsBox'] === true) {
+      if (options['model'] === true || radioValue === "model") {
         if (filter) {
           if (filter !== true) {
               definitions = fn.modelsFilter(definitions, filter)
