@@ -3,7 +3,6 @@ import {
   UPDATE_LAYOUT,
   UPDATE_FILTER,
   UPDATE_OPTIONS,
-  UPDATE_OPS_OPTIONS,
   UPDATE_MODE,
   SHOW
 } from "./actions"
@@ -15,8 +14,6 @@ export default {
   [UPDATE_FILTER]: (state, action) => state.set("filter", action.payload),
 
   [UPDATE_OPTIONS]: (state, action) => state.set("options", action.payload),
-
-  [UPDATE_OPS_OPTIONS]: (state, action) => state.set("opsOptions", action.payload),
 
   [SHOW]: (state, action) => {
     const isShown = action.payload.shown

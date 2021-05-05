@@ -28,9 +28,9 @@ export default function(taggedOps, phrase, options) {
         // check if opsPath checkbox is checked and
         // count matches there
           // list of matches in path key
-          let pathMatches = op.get("path").match(re);
           if(options["opsBox"]) {
              // opWeight of path match = 100
+          let pathMatches = op.get("path").match(re);
           if (pathMatches) {
             opWeight += pathMatches.length * 100;
           }
@@ -41,15 +41,6 @@ export default function(taggedOps, phrase, options) {
           if (descMatches) {
             opWeight += descMatches.length;
           }
-
-        if (opWeight === 0) {
-          // remove the operation with zero matches
-          filteredOps = filteredOps.delete(filteredOps.indexOf(op));
-          i -= 1;
-        } else {
-          // add the opWeight key to the operation
-          filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
-          tagWeight += opWeight;
         }
 
           if (options["modelsBox"]) {
@@ -58,21 +49,19 @@ export default function(taggedOps, phrase, options) {
                   if (value2.getIn(["schema", "$ref"], " ").match(re)) {
                     opWeight += 50;
                   }
-                    
                 }
               }
             }
-            if (opWeight === 0) {
+          if (opWeight === 0) {
               // remove the operation with zero matches
               filteredOps = filteredOps.delete(filteredOps.indexOf(op));
-              i--;
+              i-=1;
             } else {
               // add the opWeight key to the operation
               filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
               tagWeight += opWeight;
             }
-          }
-      }
+        }
       filteredOps = filteredOps.sort(function(value1, value2) {
         if (value1.get("opWeight") > value2.get("opWeight")) {
           return -1;
@@ -107,4 +96,5 @@ export default function(taggedOps, phrase, options) {
       }
     });
     return taggedOps; // return the sorted tags and their operations
+}
 }

@@ -3,7 +3,6 @@ import { normalizeArray } from "core/utils"
 export const UPDATE_LAYOUT = "layout_update_layout"
 export const UPDATE_FILTER = "layout_update_filter"
 export const UPDATE_OPTIONS = "layout_update_options"
-export const UPDATE_OPS_OPTIONS = "layout_update_ops_options"
 export const UPDATE_MODE = "layout_update_mode"
 export const SHOW = "layout_show"
 
@@ -27,13 +26,6 @@ export function updateOptions(options) {
   return {
     type: UPDATE_OPTIONS,
     payload: options
-  }
-}
-
-export function updateOpsOptions(opsOptions) {
-  return {
-    type: UPDATE_OPS_OPTIONS,
-    payload: opsOptions
   }
 }
 
