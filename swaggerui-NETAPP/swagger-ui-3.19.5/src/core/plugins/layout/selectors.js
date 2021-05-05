@@ -10,6 +10,8 @@ export const currentFilter = state => state.get("filter")
 
 export const currentOptions = state => state.get("options")
 
+export const radioValue = state => state.get("radioValue");
+
 export const isShown = (state, thing, def) => {
   thing = normalizeArray(thing)
   return state.get("shown", fromJS({})).get(fromJS(thing), def)
