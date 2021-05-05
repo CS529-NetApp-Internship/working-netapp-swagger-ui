@@ -48,19 +48,17 @@ export default class Operations extends React.Component {
     // console.log("FINALFILTER:", filter)
     let options = layoutSelectors.currentOptions()
     // console.log("FINALOPTIONS:", options)
+    let radioValue = layoutSelectors.radioValue()
 
 
     if (options) {
       // console.log("THEYRE HERE", options)
       if (filter) {
         if (filter !== true) {
-          if (options['opsBox'] === true || options['modelsBox'] === true) {
+          if (options['endpoints'] === true || options['modelsBox'] === true) {
             // console.log("ITS TRUE AND TRIED the opsBOX")
-                taggedOps = fn.opsFilter(taggedOps, filter, options);
+                taggedOps = fn.opsFilter(taggedOps, filter, options, radioValue);
           }
-          if (options['tagsBox'] === true) {
-            taggedOps = fn.tagsFilter(taggedOps, filter);
-        }
       }
     }
   }
