@@ -3,12 +3,28 @@ import PropTypes from "prop-types"
 
 export default class FilterContainer extends React.Component {
   constructor() {
-     super()
-     // initialize your options array on your state
-     this.state = {radioValue: "operations",
-       options: {endpoints: false, endpointsOptions: {paths: false, description: false, method: false, methodOptions: {get: false, post: false, delete: false, patch: false, 'x-ntap-long-description': false}}, models: false},
-     }
-   }
+    super()
+    // initialize your options array on your state
+    this.state = {
+      radioValue: "operations",
+      options: {
+        endpoints: false,
+        endpointsOptions: {
+          paths: false,
+          description: false,
+          method: false,
+          methodOptions: {
+            get: false,
+            post: false,
+            delete: false,
+            patch: false,
+            'x-ntap-long-description': false
+          }
+        },
+        models: false
+      },
+    }
+  }
 
   static propTypes = {
     specSelectors: PropTypes.object.isRequired,
@@ -19,7 +35,9 @@ export default class FilterContainer extends React.Component {
 
   onRadioChange = (event) => {
     var value = event.target.value;
-    this.setState({radioValue: value});
+    this.setState({
+      radioValue: value
+    });
   }
 
 
@@ -28,7 +46,9 @@ export default class FilterContainer extends React.Component {
 
     options[e.target.name] = e.target.checked
     console.log("OPS", options)
-    this.setState({options: options})
+    this.setState({
+      options: options
+    })
     this.props.layoutActions.updateOptions(options)
 
   }
@@ -37,26 +57,48 @@ export default class FilterContainer extends React.Component {
     const endpointsOptions = this.state.options.endpointsOptions;
     console.log("ENDPOINTS OPTIONS", endpointsOptions);
     endpointsOptions[e.target.name] = e.target.checked;
-    this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: endpointsOptions}}))
+    this.setState(prevState => ({
+      ...prevState,
+      options: {
+        ...prevState.options,
+        endpointsOptions: endpointsOptions
+      }
+    }))
     console.log("NEW OPTIONS", this.state.options);
   }
 
   getMethodsValue = (e) => {
     const methodOptions = this.state.options.endpointsOptions.methodOptions;
     methodOptions[e.target.name] = e.target.checked;
-    this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: {...prevState.options.endpointsOptions, methodOptions: methodOptions}}}))
+    this.setState(prevState => ({
+      ...prevState,
+      options: {
+        ...prevState.options,
+        endpointsOptions: {
+          ...prevState.options.endpointsOptions,
+          methodOptions: methodOptions
+        }
+      }
+    }))
     console.log("NEW OPTIONS", this.state.options);
   }
 
   onFilterChange = (e) => {
-    this.setState({target: {value}})
+    this.setState({
+      target: {
+        value
+      }
+    })
   }
 
   onKeyPress = (e) => {
-    if (e.key === 'Enter')
-    {
+    if (e.key === 'Enter') {
 
-      const {target: {value}} = e
+      const {
+        target: {
+          value
+        }
+      } = e
       this.props.layoutActions.updateFilter(value)
     }
   }
