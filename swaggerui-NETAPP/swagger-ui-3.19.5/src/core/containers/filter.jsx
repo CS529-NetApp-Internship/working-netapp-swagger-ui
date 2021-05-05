@@ -5,9 +5,8 @@ export default class FilterContainer extends React.Component {
   constructor() {
      super()
      // initialize your options array on your state
-     this.state = {
-       options: {opsBox: false, tagsBox: false, modelsBox: false}, 
-       opsOptions: {opsPaths: false, opsDescs: false},
+     this.state = {radioValue: "operations",
+       options: {endpoints: false, endpointsOptions: {paths: false, description: false, method: false, methodOptions: {get: false, post: false, delete: false, patch: false, 'x-ntap-long-description': false}}, models: false},
      }
    }
 
@@ -18,25 +17,40 @@ export default class FilterContainer extends React.Component {
     getComponent: PropTypes.func.isRequired,
   }
 
+  onRadioChange = (event) => {
+    var value = event.target.value;
+    this.setState({radioValue: value});
+  }
+
+
   getCheckboxValue = (e) => {
     const options = this.state.options
-  
-    options[e.target.name] = e.target.checked
 
+    options[e.target.name] = e.target.checked
+    console.log("OPS", options)
     this.setState({options: options})
     // console.log("OPTIONS SELECTED", options)
     this.props.layoutActions.updateOptions(options)
 
   }
 
-  getOpsCheckboxValues = (e) => {
-    const opsOptions = this.state.opsOptions
-
-    opsOptions[e.target.name] = e.target.checked
-
-    this.setState({opsOptions: opsOptions})
+  getEndpointsValue = (e) => {
+    const endpointsOptions = this.state.options.endpointsOptions;
+    console.log("ENDPOINTS OPTIONS", endpointsOptions);
+    endpointsOptions[e.target.name] = e.target.checked;
+    this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: endpointsOptions}}))
+    console.log("NEW OPTIONS", this.state.options);
+    //this.setState({options: {endpointsOptions: {endpointsOptions}});
     // console.log("OPS OPTIONS SELECTED", opsOptions)
-    this.props.layoutActions.updateOpsOptions(opsOptions)
+  }
+
+  getMethodsValue = (e) => {
+    const methodOptions = this.state.options.endpointsOptions.methodOptions;
+    methodOptions[e.target.name] = e.target.checked;
+    this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: {...prevState.options.endpointsOptions, methodOptions: methodOptions}}}))
+    console.log("NEW OPTIONS", this.state.options);
+    //this.setState({options: {endpointsOptions: {endpointsOptions}});
+    // console.log("OPS OPTIONS SELECTED", opsOptions)
   }
 
   onFilterChange = (e) => {
@@ -60,7 +74,6 @@ export default class FilterContainer extends React.Component {
     const isFailed = specSelectors.loadingStatus() === "failed"
     const filter = layoutSelectors.currentFilter()
     const options = layoutSelectors.currentOptions()
-    const opsOptions = layoutSelectors.currentOpsOptions()
 
     const inputStyle = {}
     if (isFailed) inputStyle.color = "red"
@@ -77,44 +90,96 @@ export default class FilterContainer extends React.Component {
                      disabled={isLoading} style={inputStyle}/>
             </Col>
 
-            <div className="checkbox-wrapper">
-              Filtering Options:
-              <div className="singular-checkbox">
-                <label>
-                  <input type="checkbox" value={1} name="opsBox" onChange={this.getCheckboxValue.bind(this)}/>
-                  Operations
-                </label>
-              </div>
-              <div className="singular-checkbox">
-                <label>
-                  <input type="checkbox" value={2} name="tagsBox" onChange={this.getCheckboxValue.bind(this)}/>
-                  Tags
-                </label>
-              </div>
-              <div className="singular-checkbox">
-                <label>
-                  <input type="checkbox" value={3} name="modelsBox" onChange={this.getCheckboxValue.bind(this)}/>
-                  Models
-                </label>
-              </div>
-              <div className="sub-checkbox-wrapper">
+            <div>
+              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Operations
+              <input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Models
+
+              {this.state.radioValue === 'operations' &&
+              <div className="checkbox-wrapper">
                 <div className="singular-checkbox">
                   <label>
-                    <input type="checkbox" value={4} name="opsDescs" onChange={this.getOpsCheckboxValues.bind(this)}/>
-                    Op Descs
+                    <input type="checkbox" value={1} name="endpoints" onChange={this.getCheckboxValue.bind(this)}/>
+                    Operations Keyword Search
                   </label>
                 </div>
-              </div>
-              <div className="sub-checkbox-wrapper">
+                //endpoints
+                {this.state.options.endpoints === true &&
+                  <div className="checkbox-wrapper">
+                    <div className="singular-checkbox">
+                      <label>
+                        <input type="checkbox" value={1} name="paths" onChange={this.getEndpointsValue.bind(this)}/>
+                        Paths
+                      </label>
+                    </div>
+
+                    <div className="singular-checkbox">
+                      <label>
+                        <input type="checkbox" value={1} name="description" onChange={this.getEndpointsValue.bind(this)}/>
+                        Description
+                      </label>
+                    </div>
+
+                    <div className="singular-checkbox">
+                      <label>
+                        <input type="checkbox" value={1} name="method" onChange={this.getEndpointsValue.bind(this)}/>
+                        Method
+                      </label>
+                    </div>
+                    //method
+                    {this.state.options.endpointsOptions.method === true &&
+                      <div className="checkbox-wrapper">
+                        <div className="singular-checkbox">
+                          <label>
+                            <input type="checkbox" value={1} name="get" onChange={this.getMethodsValue.bind(this)}/>
+                            Get
+                          </label>
+                        </div>
+
+                        <div className="singular-checkbox">
+                          <label>
+                            <input type="checkbox" value={1} name="post" onChange={this.getMethodsValue.bind(this)}/>
+                            Post
+                          </label>
+                        </div>
+
+                        <div className="singular-checkbox">
+                          <label>
+                            <input type="checkbox" value={1} name="patch" onChange={this.getMethodsValue.bind(this)}/>
+                            Patch
+                          </label>
+                        </div>
+
+                        <div className="singular-checkbox">
+                          <label>
+                            <input type="checkbox" value={1} name="delete" onChange={this.getMethodsValue.bind(this)}/>
+                            Delete
+                          </label>
+                        </div>
+
+                        <div className="singular-checkbox">
+                          <label>
+                            <input type="checkbox" value={1} name="x-ntap-long-description" onChange={this.getMethodsValue.bind(this)}/>
+                            Docs
+                          </label>
+                        </div>
+
+
+                    </div>}
+
+                  </div>}
+                  ...
                 <div className="singular-checkbox">
                   <label>
-                    <input type="checkbox" value={5} name="opsPaths" onChange={this.getOpsCheckboxValues.bind(this)}/>
-                    Op Paths
+                    <input type="checkbox" value={1} name="models" onChange={this.getCheckboxValue.bind(this)}/>
+                    Models Search
                   </label>
                 </div>
 
-                </div>
-            </div>
+            </div>} //end checkboxes
+
+              {this.state.radioValue === 'models' && <div> models is selected</div>}
+            </div> // end radio buttons
+
         </div>
         }
       </div>
