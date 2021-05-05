@@ -173,10 +173,10 @@ export default class FilterContainer extends React.Component {
                   </label>
                 </div>
 
-            </div>} //end checkboxes
+            </div>}
 
-              {this.state.radioValue === 'models' && <div> models is selected</div>}
-            </div> // end radio buttons
+              {this.state.radioValue === 'models'}
+            </div>
 
         </div>
         }
