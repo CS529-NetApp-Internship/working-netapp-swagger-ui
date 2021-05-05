@@ -85,9 +85,10 @@ export default class FilterContainer extends React.Component {
                      disabled={isLoading} style={inputStyle}/>
             </Col>
 
-            <div>
-              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Operations
-              <input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Models
+            <div className="radio-wrapper">
+              <label>
+              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Operations </label>
+              <label><input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Models </label>
 
               {this.state.radioValue === 'operations' &&
               <div className="checkbox-wrapper">
