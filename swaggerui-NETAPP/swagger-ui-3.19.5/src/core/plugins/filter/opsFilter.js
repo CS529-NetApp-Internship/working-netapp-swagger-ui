@@ -20,6 +20,7 @@ export default function(taggedOps, phrase, options, definitions, radioValue) {
       for (let i = 0; i < filteredOps.size; i++) {
         let op = filteredOps.get(i);
         let opWeight = 0;
+        let size = filteredOps.size;
         if (radioValue === "models") {
           if (op.get("operation").has("responses")) {
             for (let [key2, value2] of op.getIn(["operation", "responses"])) {
@@ -65,28 +66,24 @@ export default function(taggedOps, phrase, options, definitions, radioValue) {
                 if(op.get("method") !== "get") {
                   filteredOps = filteredOps.delete(filteredOps.indexOf(op))
                   i -= 1
-                  continue
                 }
               }
               if (options["endpointsOptions"]["methodOptions"]["post"]) {
-                if(op.get("method") !== "post") {
+                if(op.get("method") !== "post" && filteredOps.size !== size) {
                   filteredOps = filteredOps.delete(filteredOps.indexOf(op))
                   i -= 1
-                  continue
                 }
               }
               if (options["endpointsOptions"]["methodOptions"]["delete"]) {
-                if(op.get("method") !== "delete") {
+                if(op.get("method") !== "delete" && filteredOps.size !== size) {
                   filteredOps = filteredOps.delete(filteredOps.indexOf(op));
                   i -= 1
-                  continue
                 }
               }
               if (options["endpointsOptions"]["methodOptions"]["patch"]) {
-                if(op.get("method") !== "patch") {
+                if(op.get("method") !== "patch" && filteredOps.size !== size) {
                   filteredOps = filteredOps.delete(filteredOps.indexOf(op));
                   i -= 1
-                  continue
                 }
               }
             }
