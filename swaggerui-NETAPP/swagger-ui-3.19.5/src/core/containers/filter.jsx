@@ -41,7 +41,6 @@ export default class FilterContainer extends React.Component {
     this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: endpointsOptions}}))
     console.log("NEW OPTIONS", this.state.options);
     //this.setState({options: {endpointsOptions: {endpointsOptions}});
-    // console.log("OPS OPTIONS SELECTED", opsOptions)
   }
 
   getMethodsValue = (e) => {
@@ -50,7 +49,6 @@ export default class FilterContainer extends React.Component {
     this.setState(prevState => ({...prevState, options: {...prevState.options, endpointsOptions: {...prevState.options.endpointsOptions, methodOptions: methodOptions}}}))
     console.log("NEW OPTIONS", this.state.options);
     //this.setState({options: {endpointsOptions: {endpointsOptions}});
-    // console.log("OPS OPTIONS SELECTED", opsOptions)
   }
 
   onFilterChange = (e) => {
