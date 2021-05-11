@@ -31,6 +31,7 @@ export default class Models extends Component {
 
   render(){
     let { specSelectors, getComponent, layoutSelectors, layoutActions, getConfigs, fn } = this.props
+    
     let definitions = specSelectors.definitions()
 
     let filter = layoutSelectors.currentFilter()
@@ -39,12 +40,18 @@ export default class Models extends Component {
 
     let radioValue = layoutSelectors.radioValue()
 
-    if (options) {
-      if (options['model'] === true || radioValue === "model") {
+    if(options) {
+
+      if (options['models']) {
         if (filter) {
-          if (filter !== true) {
               definitions = fn.modelsFilter(definitions, filter)
-          }
+        }
+      }
+    }
+    if(radioValue) {
+      if(radioValue === "models") {
+        if(filter) {
+          definitions = fn.modelsFilter(definitions, filter)
         }
       }
     }

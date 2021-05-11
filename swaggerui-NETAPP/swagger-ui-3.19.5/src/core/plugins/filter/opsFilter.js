@@ -31,10 +31,10 @@ export default function(taggedOps, phrase, options, definitions, radioValue) {
         }
         else {
 
-        // check if opsPath checkbox is checked and
-        // count matches there
-          // list of matches in path key
-          if (options["endpointsOptions"]["paths"]) {
+        // check if the path checkbox is checked and if none of the sub-checkboxes are checked
+        // If this is true, then count the number of matches in the path name
+          if (options["endpointsOptions"]["paths"] || ((options["endpoints"]) && 
+          !(options["endpointsOptions"]["paths"] || options["endpointsOptions"]["description"] || options["endpointsOptions"]["method"]))) {
              // opWeight of path match = 100
           let pathMatches = op.get("path").match(re);
           if (pathMatches) {
@@ -51,41 +51,15 @@ export default function(taggedOps, phrase, options, definitions, radioValue) {
           }
         }
       }
-          if (opWeight === 0) {
-              // remove the operation with zero matches
+          //If there are no matches or if the method box is checked, but doesn't have the method defined in the search, then remove the operation
+          if (opWeight === 0 || (options && options["endpointsOptions"]["method"] && !options["endpointsOptions"]["methodOptions"][op.get("method")])) {
               filteredOps = filteredOps.delete(filteredOps.indexOf(op));
               i-=1;
             } else {
               // add the opWeight key to the operation
               filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
               tagWeight += opWeight;
-            
-            if (options["endpointsOptions"]["method"]){
-              if (options["endpointsOptions"]["methodOptions"]["get"]) {
-                if(op.get("method") !== "get") {
-                  filteredOps = filteredOps.delete(filteredOps.indexOf(op))
-                  i -= 1
-                }
               }
-              if (options["endpointsOptions"]["methodOptions"]["post"]) {
-                if(op.get("method") !== "post") {
-                  filteredOps = filteredOps.delete(filteredOps.indexOf(op))
-                  i -= 1
-                }
-              }
-              if (options["endpointsOptions"]["methodOptions"]["delete"]) {
-                if(op.get("method") !== "delete") {
-                  filteredOps = filteredOps.delete(filteredOps.indexOf(op));
-                  i -= 1
-                }
-              }
-              if (options["endpointsOptions"]["methodOptions"]["patch"]) {
-                if(op.get("method") !== "patch") {
-                  filteredOps = filteredOps.delete(filteredOps.indexOf(op));
-                  i -= 1
-                }
-              }
-            }
           }
         }
       filteredOps = filteredOps.sort(function(value1, value2) {
@@ -121,6 +95,5 @@ export default function(taggedOps, phrase, options, definitions, radioValue) {
         return 0;
       }
     });
-}
-return taggedOps;
-}
+    return taggedOps;
+  }

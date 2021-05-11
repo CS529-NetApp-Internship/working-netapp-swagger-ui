@@ -23,7 +23,9 @@ export default class FilterContainer extends React.Component {
         },
         models: false
       },
+      filterText: '',
     }
+    this.onFilterChange = this.onFilterChange.bind(this)
   }
 
   static propTypes = {
@@ -33,11 +35,13 @@ export default class FilterContainer extends React.Component {
     getComponent: PropTypes.func.isRequired,
   }
 
+
   onRadioChange = (event) => {
     var value = event.target.value;
     this.setState({
       radioValue: value
     });
+    this.props.layoutActions.updateRadioValue(value)
   }
 
 
@@ -45,17 +49,14 @@ export default class FilterContainer extends React.Component {
     const options = this.state.options
 
     options[e.target.name] = e.target.checked
-    console.log("OPS", options)
     this.setState({
       options: options
     })
     this.props.layoutActions.updateOptions(options)
-
   }
 
   getEndpointsValue = (e) => {
     const endpointsOptions = this.state.options.endpointsOptions;
-    console.log("ENDPOINTS OPTIONS", endpointsOptions);
     endpointsOptions[e.target.name] = e.target.checked;
     this.setState(prevState => ({
       ...prevState,
@@ -64,7 +65,7 @@ export default class FilterContainer extends React.Component {
         endpointsOptions: endpointsOptions
       }
     }))
-    console.log("NEW OPTIONS", this.state.options);
+    this.props.layoutActions.updateOptions(this.state.options)
   }
 
   getMethodsValue = (e) => {
@@ -80,15 +81,11 @@ export default class FilterContainer extends React.Component {
         }
       }
     }))
-    console.log("NEW OPTIONS", this.state.options);
+    this.props.layoutActions.updateOptions(this.state.options)
   }
 
   onFilterChange = (e) => {
-    this.setState({
-      target: {
-        value
-      }
-    })
+    this.setState({filterText: e.target.value})
   }
 
   onKeyPress = (e) => {
@@ -104,7 +101,7 @@ export default class FilterContainer extends React.Component {
   }
 
   render () {
-    const {specSelectors, layoutSelectors, getComponent} = this.props
+    const {specSelectors, layoutSelectors, layoutActions, getComponent} = this.props
     const Col = getComponent("Col")
 
     const isLoading = specSelectors.loadingStatus() === "loading"
@@ -123,21 +120,21 @@ export default class FilterContainer extends React.Component {
             <Col className="filter wrapper" mobile={12}>
             <div className="filter-icon">🔍</div>
               <input className="operation-filter-input" placeholder="Enter your search query here..." type="text"
-                     onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={filter === true || filter === "true" ? "" : filter}
+                     onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={this.state.filterText}
                      disabled={isLoading} style={inputStyle}/>
             </Col>
 
             <div className="radio-wrapper">
               <label>
-              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Operations </label>
-              <label><input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Models </label>
+              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Keyword Search </label>
+              <label><input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Model Search </label>
 
               {this.state.radioValue === 'operations' &&
               <div className="checkbox-wrapper">
                 <div className="singular-checkbox">
                   <label>
                     <input type="checkbox" value={1} name="endpoints" onChange={this.getCheckboxValue.bind(this)}/>
-                    Operations Keyword Search
+                    Operations
                   </label>
                 </div>
                 {this.state.options.endpoints === true &&
@@ -205,7 +202,7 @@ export default class FilterContainer extends React.Component {
                 <div className="singular-checkbox">
                   <label>
                     <input type="checkbox" value={1} name="models" onChange={this.getCheckboxValue.bind(this)}/>
-                    Models Search
+                    Models
                   </label>
                 </div>
 
