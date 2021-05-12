@@ -1,5 +1,4 @@
 export default function(taggedOps, phrase, options) {
-  // return taggedOps.filter((tagObj, tag) => tag.indexOf(phrase) !== -1)
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
   // case insensitive and match all occurrences
