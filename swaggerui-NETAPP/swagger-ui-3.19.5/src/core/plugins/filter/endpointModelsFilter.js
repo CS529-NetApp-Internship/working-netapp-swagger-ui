@@ -36,8 +36,12 @@ export default function(taggedOps, modelsDefinition, phrase) {
         i -= 1;
       }
     }
-    // Update taggedOps with the operations containing matches
-    taggedOps = taggedOps.setIn([key.toString(), "operations"], filteredOps);
+    if (filteredOps.size === 0) {
+      taggedOps = taggedOps.delete(key.toString());
+    } else {
+      // Update taggedOps with the operations containing matches
+      taggedOps = taggedOps.setIn([key.toString(), "operations"], filteredOps);
+    }
   }
   return taggedOps;
 }
