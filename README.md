@@ -9,16 +9,19 @@
   - `npm run dev`
 - By default, SwaggerUI will be available at : http://localhost:3200/
 
-## Using the search feature
+## Using the Deep Search Feature
 
 ### Keyword Search
 
-When this mode is chosen, results are found by checking for string matches in
-the scope defined by the user. Specifically, the user can choose which
-categories/keys to search in. By doing so, the user can narrow down the search
-results by looking in the models section, path, description, type of
-method, and others. In this mode, the results found in the operations/endpoints
-section are independent from those found in the models section.
+When this mode is chosen, results are found by checking for string matches in 
+the scope defined by the user. Specifically, the user can choose which 
+categories/keys to search in, whether that be operations or models. Users can 
+select the operations checkbox to search them and within that they can also 
+narrow down their search by operation path, description, and type of method. 
+Users who select the models checkbox will see that models are filtered by their 
+name. While both models and operations can be searched simultaneously in this 
+mode, the results found in the two sections are unrelated and independent of 
+each other.
 
 ### Models Search
 
