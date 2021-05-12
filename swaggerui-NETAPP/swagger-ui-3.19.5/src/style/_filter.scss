@@ -23,17 +23,6 @@
 	}
 }
 
-.radio-wrapper {
-	padding-top: 20px;
-	padding-left: 125px;
-	vertical-align: middle;
-}
-
-label {
-	font-size: 100%;
-	display: inline-block;
-}
-
 input[type=checkbox] {
 	padding-top: 20px;
 	vertical-align: middle;
@@ -58,6 +47,12 @@ input[type=checkbox] {
 	}
 }
 
+.radio-wrapper {
+	padding-top: 20px;
+	padding-left: 125px;
+	vertical-align: middle;
+}
+
 input[type=radio] {
 	padding-top: 20px;
 	vertical-align: middle;
@@ -80,4 +75,9 @@ input[type=radio] {
 	&:focus {
 		outline: none !important;
 	}
+}
+
+label {
+	font-size: 100%;
+	display: inline-block;
 }
