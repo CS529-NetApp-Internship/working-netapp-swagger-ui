@@ -3,7 +3,6 @@ export default function(taggedOps, phrase, options) {
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
   // case insensitive and match all occurrences
-  console.log("Im being called");
   let re = new RegExp(phrase, "ig");
   // iterate through key and value pairs within the object
   for (let [key, value] of taggedOps) {
