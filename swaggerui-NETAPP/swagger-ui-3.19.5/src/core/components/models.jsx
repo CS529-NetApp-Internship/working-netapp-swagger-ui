@@ -31,13 +31,28 @@ export default class Models extends Component {
 
   render(){
     let { specSelectors, getComponent, layoutSelectors, layoutActions, getConfigs, fn } = this.props
+    
     let definitions = specSelectors.definitions()
 
     let filter = layoutSelectors.currentFilter()
 
-    if (filter) {
-      if (filter !== true) {
+    let options = layoutSelectors.currentOptions()
+
+    let radioValue = layoutSelectors.radioValue()
+
+    if(options) {
+
+      if (options['models']) {
+        if (filter) {
+              definitions = fn.modelsFilter(definitions, filter)
+        }
+      }
+    }
+    if(radioValue) {
+      if(radioValue === "models") {
+        if(filter) {
           definitions = fn.modelsFilter(definitions, filter)
+        }
       }
     }
 
@@ -70,7 +85,7 @@ export default class Models extends Component {
 
             const schema = Map.isMap(schemaValue) ? schemaValue : Im.Map()
             const rawSchema = Map.isMap(rawSchemaValue) ? rawSchemaValue : Im.Map()
-            
+
             const displayName = schema.get("title") || rawSchema.get("title") || name
 
             if(layoutSelectors.isShown(["models", name], false) && (schema.size === 0 && rawSchema.size > 0)) {

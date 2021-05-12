@@ -377,25 +377,6 @@
     }
 }
 
-.filter
-{
-    .filter-icon {
-       float: left;
-       font-size: 275%;
-       padding: 10px 30px;
-    }
-    .operation-filter-input
-    {
-        width: 90%;
-        margin: 2px 0;
-        padding: 21px 10px;
-        border: 2px solid $operational-filter-input-border-color;
-    }
-
-    padding-bottom: 20px;
-}
-
-
 .tab
 {
     display: flex;
