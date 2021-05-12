@@ -30,3 +30,20 @@ This functionality conducts a keyword search on the models section and displays
 the results there. Additionally, it looks through all the endpoints/operations
 and shows which operations use the models found in the search. This allows the
 user to search for a model and the endpoints that use that model.
+
+### Know bugs
+
+- Once `Models Search` radio button is selected, filter returns correct endpoints. However, once you click on the endpoint to expand, it disappears from the search results.
+
+- To use keyword search functionality, you may need to switch to `Models Search` radio button and then back to `Keyword Search`.
+
+- Once model is expanded the following warnings show up on the console
+
+```
+VM7193 9:33 Warning: Failed prop type: Model: prop type `relEndpoint` is invalid; it must be a function, usually from React.PropTypes.
+```
+
+```
+Warning: Failed prop type: Invalid prop `schema` of type `Immutable.Map` supplied to `Model`, expected `OrderedMap`.
+```
+
