@@ -42,7 +42,7 @@ export default class Models extends Component {
 
     if(options) {
 
-      if (options['models']) {
+      if (options['models'] && options['models'] === true) {
         if (filter) {
               definitions = fn.modelsFilter(definitions, filter)
         }
