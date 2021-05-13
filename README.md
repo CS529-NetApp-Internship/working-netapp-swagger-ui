@@ -31,7 +31,7 @@ the results there. Additionally, it looks through all the endpoints/operations
 and shows which operations use the models found in the search. This allows the
 user to search for a model and the endpoints that use that model.
 
-### Know bugs
+### Known bugs
 
 - Once model is expanded the following warnings show up on the console
 
