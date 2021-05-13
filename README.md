@@ -33,8 +33,6 @@ user to search for a model and the endpoints that use that model.
 
 ### Know bugs
 
-- Once `Models Search` radio button is selected, filter returns correct endpoints. However, once you click on the endpoint to expand, it disappears from the search results.
-
 - Once model is expanded the following warnings show up on the console
 
 ```
