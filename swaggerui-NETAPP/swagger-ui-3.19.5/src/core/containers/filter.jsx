@@ -35,7 +35,7 @@ export default class FilterContainer extends React.Component {
     getComponent: PropTypes.func.isRequired,
   }
 
-
+  // when radio button is changed, update it's value
   onRadioChange = (event) => {
     var value = event.target.value;
     this.setState({
@@ -44,7 +44,7 @@ export default class FilterContainer extends React.Component {
     this.props.layoutActions.updateRadioValue(value)
   }
 
-
+  // when a checkbox is pressed, update it's value
   getCheckboxValue = (e) => {
     const options = this.state.options
 
@@ -55,6 +55,7 @@ export default class FilterContainer extends React.Component {
     this.props.layoutActions.updateOptions(options)
   }
 
+  // when an endpoint sub-checkbox is pressed, update it's value
   getEndpointsValue = (e) => {
     const endpointsOptions = this.state.options.endpointsOptions;
     endpointsOptions[e.target.name] = e.target.checked;
@@ -68,6 +69,7 @@ export default class FilterContainer extends React.Component {
     this.props.layoutActions.updateOptions(this.state.options)
   }
 
+  // when a methods sub-checkbox is pressed, update it's value
   getMethodsValue = (e) => {
     const methodOptions = this.state.options.endpointsOptions.methodOptions;
     methodOptions[e.target.name] = e.target.checked;
@@ -84,13 +86,13 @@ export default class FilterContainer extends React.Component {
     this.props.layoutActions.updateOptions(this.state.options)
   }
 
+  // update filter text
   onFilterChange = (e) => {
     this.setState({filterText: e.target.value})
   }
 
   onKeyPress = (e) => {
     if (e.key === 'Enter') {
-
       const {
         target: {
           value
@@ -115,104 +117,93 @@ export default class FilterContainer extends React.Component {
 
     return (
       <div>
-        {filter === null || filter === false ? null :
-          <div className="filter-wrapper">
+         {filter === null || filter === false ? null :
+         <div className="filter-wrapper">
             <Col className="filter wrapper" mobile={12}>
             <div className="filter-icon">🔍</div>
-              <input className="operation-filter-input" placeholder="Enter your search query here..." type="text"
-                     onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={this.state.filterText}
-                     disabled={isLoading} style={inputStyle}/>
+            <input className="operation-filter-input" placeholder="Enter your search query here..." type="text"
+               onChange={this.onFilterChange} onKeyPress={this.onKeyPress} value={this.state.filterText}
+               disabled={isLoading} style={inputStyle}/>
             </Col>
-
             <div className="radio-wrapper">
-              <label>
-              <input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Keyword Search </label>
-              <label><input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Model Search </label>
-
-              {this.state.radioValue === 'operations' &&
-              <div className="checkbox-wrapper">
-                <div className="singular-checkbox">
-                  <label>
-                    <input type="checkbox" value={1} name="endpoints" onChange={this.getCheckboxValue.bind(this)}/>
-                    Operations
-                  </label>
-                </div>
-                {this.state.options.endpoints === true &&
+               <label><input type="radio" checked={this.state.radioValue ==='operations'} onChange={this.onRadioChange.bind(this)} value="operations" name="gender" /> Keyword Search </label>
+               <label><input type="radio" checked={this.state.radioValue ==='models'} onChange={this.onRadioChange.bind(this)} value="models" name="gender" /> Model Search </label>
+               {this.state.radioValue === 'operations' &&
+               <div className="checkbox-wrapper">
+                  <div className="singular-checkbox">
+                     <label>
+                     <input type="checkbox" value={1} name="endpoints" onChange={this.getCheckboxValue.bind(this)}/>
+                     Operations
+                     </label>
+                  </div>
+                  {this.state.options.endpoints === true &&
                   <div className="checkbox-wrapper">
-                    <div className="singular-checkbox">
-                      <label>
+                     <div className="singular-checkbox">
+                        <label>
                         <input type="checkbox" value={1} name="paths" onChange={this.getEndpointsValue.bind(this)}/>
                         Paths
-                      </label>
-                    </div>
-
-                    <div className="singular-checkbox">
-                      <label>
+                        </label>
+                     </div>
+                     <div className="singular-checkbox">
+                        <label>
                         <input type="checkbox" value={1} name="description" onChange={this.getEndpointsValue.bind(this)}/>
                         Description
-                      </label>
-                    </div>
-
-                    <div className="singular-checkbox">
-                      <label>
+                        </label>
+                     </div>
+                     <div className="singular-checkbox">
+                        <label>
                         <input type="checkbox" value={1} name="method" onChange={this.getEndpointsValue.bind(this)}/>
                         Method
-                      </label>
-                    </div>
-                    {this.state.options.endpointsOptions.method === true &&
-                      <div className="checkbox-wrapper">
+                        </label>
+                     </div>
+                     {this.state.options.endpointsOptions.method === true &&
+                     <div className="checkbox-wrapper">
                         <div className="singular-checkbox">
-                          <label>
-                            <input type="checkbox" value={1} name="get" onChange={this.getMethodsValue.bind(this)}/>
-                            Get
-                          </label>
+                           <label>
+                           <input type="checkbox" value={1} name="get" onChange={this.getMethodsValue.bind(this)}/>
+                           Get
+                           </label>
                         </div>
-
                         <div className="singular-checkbox">
-                          <label>
-                            <input type="checkbox" value={1} name="post" onChange={this.getMethodsValue.bind(this)}/>
-                            Post
-                          </label>
+                           <label>
+                           <input type="checkbox" value={1} name="post" onChange={this.getMethodsValue.bind(this)}/>
+                           Post
+                           </label>
                         </div>
-
                         <div className="singular-checkbox">
-                          <label>
-                            <input type="checkbox" value={1} name="patch" onChange={this.getMethodsValue.bind(this)}/>
-                            Patch
-                          </label>
+                           <label>
+                           <input type="checkbox" value={1} name="patch" onChange={this.getMethodsValue.bind(this)}/>
+                           Patch
+                           </label>
                         </div>
-
                         <div className="singular-checkbox">
-                          <label>
-                            <input type="checkbox" value={1} name="delete" onChange={this.getMethodsValue.bind(this)}/>
-                            Delete
-                          </label>
+                           <label>
+                           <input type="checkbox" value={1} name="delete" onChange={this.getMethodsValue.bind(this)}/>
+                           Delete
+                           </label>
                         </div>
-
                         <div className="singular-checkbox">
-                          <label>
-                            <input type="checkbox" value={1} name="x-ntap-long-description" onChange={this.getMethodsValue.bind(this)}/>
-                            Docs
-                          </label>
+                           <label>
+                           <input type="checkbox" value={1} name="x-ntap-long-description" onChange={this.getMethodsValue.bind(this)}/>
+                           Docs
+                           </label>
                         </div>
-
-                    </div>}
-
-                  </div>}
-                <div className="singular-checkbox">
-                  <label>
-                    <input type="checkbox" value={1} name="models" onChange={this.getCheckboxValue.bind(this)}/>
-                    Models
-                  </label>
-                </div>
-
-            </div>}
-
-              {this.state.radioValue === 'models'}
+                     </div>
+                     }
+                  </div>
+                  }
+                  <div className="singular-checkbox">
+                     <label>
+                     <input type="checkbox" value={1} name="models" onChange={this.getCheckboxValue.bind(this)}/>
+                     Models
+                     </label>
+                  </div>
+               </div>
+               }
+               {this.state.radioValue === 'models'}
             </div>
-
-        </div>
-        }
+         </div>
+         }
       </div>
     )
   }

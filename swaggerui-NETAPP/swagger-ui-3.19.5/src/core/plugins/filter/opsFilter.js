@@ -1,5 +1,4 @@
 export default function(taggedOps, phrase, options) {
-  // return taggedOps.filter((tagObj, tag) => tag.indexOf(phrase) !== -1)
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
   // case insensitive and match all occurrences
@@ -12,8 +11,7 @@ export default function(taggedOps, phrase, options) {
     if (keyMatches) {
       tagWeight += 1000;
     }
-    // Count matches in every operation and
-    // sort the list of operations
+    // Count matches in every operation and sort the list of operations
     let filteredOps = value.get("operations");
     if (filteredOps.size !== 0) {
       for (let i = 0; i < filteredOps.size; i++) {
@@ -53,15 +51,17 @@ export default function(taggedOps, phrase, options) {
             options["endpointsOptions"]["method"] &&
             !options["endpointsOptions"]["methodOptions"][op.get("method")])
         ) {
+          // removes operation
           filteredOps = filteredOps.delete(filteredOps.indexOf(op));
           i -= 1;
         } else {
-          // add the opWeight key to the operation
+          // keep operation, add the opWeight key to the operation
           filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
           tagWeight += opWeight;
         }
       }
     }
+
     filteredOps = filteredOps.sort(function(value1, value2) {
       if (value1.get("opWeight") > value2.get("opWeight")) {
         return -1;
