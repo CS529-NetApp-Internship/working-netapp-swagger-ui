@@ -61,8 +61,6 @@ export default class Operations extends React.Component {
         }
       } else if (radioValue === "models") {
         taggedOps = fn.endpointModelsFilter(taggedOps, definitions, filter);
-      } else {
-        console.log("Unknown radio value");
       }
     }
 
