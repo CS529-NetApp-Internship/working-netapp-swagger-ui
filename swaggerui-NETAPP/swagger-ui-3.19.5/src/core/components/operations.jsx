@@ -65,7 +65,7 @@ export default class Operations extends React.Component {
     if (radioValue && filter && filter !== true) {
       if (radioValue === "operations") {
         if (options) {
-          if (options["endpoints"] === true) {
+          if (options["endpoints"]) {
             taggedOps = fn.opsFilter(taggedOps, filter, options);
           }
         }
