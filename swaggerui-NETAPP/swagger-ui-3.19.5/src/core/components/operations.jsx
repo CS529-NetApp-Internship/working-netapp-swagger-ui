@@ -15,6 +15,13 @@ const SWAGGER2_OPERATION_METHODS = [
 const OAS3_OPERATION_METHODS = SWAGGER2_OPERATION_METHODS.concat(["trace"]);
 
 export default class Operations extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      taggedOps: Im.Map()
+    }
+  }
   static propTypes = {
     specSelectors: PropTypes.object.isRequired,
     specActions: PropTypes.object.isRequired,
@@ -38,7 +45,10 @@ export default class Operations extends React.Component {
       fn
     } = this.props;
 
-    let taggedOps = specSelectors.taggedOperations();
+    if(this.state.taggedOps.isEmpty()) {
+      this.state.taggedOps = specSelectors.taggedOperations()
+    }
+    let taggedOps = this.state.taggedOps
     let definitions = specSelectors.definitions();
     const OperationContainer = getComponent("OperationContainer", true);
     const OperationTag = getComponent("OperationTag");
@@ -61,8 +71,6 @@ export default class Operations extends React.Component {
         }
       } else if (radioValue === "models") {
         taggedOps = fn.endpointModelsFilter(taggedOps, definitions, filter);
-      } else {
-        console.log("Unknown radio value");
       }
     }
 
