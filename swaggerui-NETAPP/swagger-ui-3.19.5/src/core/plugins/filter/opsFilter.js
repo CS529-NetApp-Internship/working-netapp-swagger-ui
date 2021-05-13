@@ -1,3 +1,4 @@
+// TODO refactor the the for loop
 export default function(taggedOps, phrase, options) {
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
