@@ -35,8 +35,6 @@ user to search for a model and the endpoints that use that model.
 
 - Once `Models Search` radio button is selected, filter returns correct endpoints. However, once you click on the endpoint to expand, it disappears from the search results.
 
-- To use keyword search functionality, you may need to switch to `Models Search` radio button and then back to `Keyword Search`.
-
 - Once model is expanded the following warnings show up on the console
 
 ```
