@@ -1,4 +1,5 @@
 // TODO refactor the the for loop
+import { Map, List, fromJS } from "immutable";
 export default function(taggedOps, phrase, options) {
   // create regular expression using the phrase
   // the modifiers ig mean that the regex will be
@@ -13,8 +14,10 @@ export default function(taggedOps, phrase, options) {
       tagWeight += 1000;
     }
     // Count matches in every operation and sort the list of operations
+    let foundMatches = []
     let filteredOps = value.get("operations");
     if (filteredOps.size !== 0) {
+
       for (let i = 0; i < filteredOps.size; i++) {
         let op = filteredOps.get(i);
         let opWeight = 0;
@@ -45,25 +48,21 @@ export default function(taggedOps, phrase, options) {
           }
         }
 
-        // If there are no matches or if the method box is checked, but doesn't have the method defined in the search, then remove the operation
         if (
-          opWeight === 0 ||
+          !(opWeight === 0 ||
           (options &&
             options["endpointsOptions"]["method"] &&
-            !options["endpointsOptions"]["methodOptions"][op.get("method")])
+            !options["endpointsOptions"]["methodOptions"][op.get("method")]))
         ) {
-          // removes operation
-          filteredOps = filteredOps.delete(filteredOps.indexOf(op));
-          i -= 1;
-        } else {
-          // keep operation, add the opWeight key to the operation
+          // Keep the operation
+          foundMatches.push(op)
           filteredOps = filteredOps.set(i, op.set("opWeight", opWeight));
           tagWeight += opWeight;
-        }
+         }
       }
     }
-
-    filteredOps = filteredOps.sort(function(value1, value2) {
+    // sort the endpoints
+    foundMatches = List(foundMatches).sort(function(value1, value2) {
       if (value1.get("opWeight") > value2.get("opWeight")) {
         return -1;
       }
@@ -75,8 +74,11 @@ export default function(taggedOps, phrase, options) {
       }
     });
 
-    // Set filtered operations to respective tag
-    taggedOps = taggedOps.setIn([key.toString(), "operations"], filteredOps);
+    // Set matches to respective tag
+    taggedOps = taggedOps.setIn(
+      [key.toString(), "operations"],
+      List(foundMatches)
+    );
 
     // see if the current tag contained any matches:
     if (tagWeight === 0) {
@@ -85,6 +87,7 @@ export default function(taggedOps, phrase, options) {
       taggedOps = taggedOps.setIn([key.toString(), "tagWeight"], tagWeight);
     }
   }
+  // sort the endpoint groups based on tag
   taggedOps = taggedOps.sort(function(value1, value2) {
     if (value1.get("tagWeight") > value2.get("tagWeight")) {
       return -1;
