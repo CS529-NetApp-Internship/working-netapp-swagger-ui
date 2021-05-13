@@ -63,7 +63,7 @@ export default function(taggedOps, phrase, options) {
       }
     }
     // sort the endpoints
-    foundMatches = List(foundMatches).sort(function(value1, value2) {
+    foundMatches = foundMatches.sort(function(value1, value2) {
       if (value1.get("opWeight") > value2.get("opWeight")) {
         return -1;
       }
