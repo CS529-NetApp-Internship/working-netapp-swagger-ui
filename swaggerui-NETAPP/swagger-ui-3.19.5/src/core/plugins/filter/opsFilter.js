@@ -1,4 +1,3 @@
-// TODO refactor the the for loop
 import { Map, List, fromJS } from "immutable";
 export default function(taggedOps, phrase, options) {
   // create regular expression using the phrase
@@ -47,7 +46,9 @@ export default function(taggedOps, phrase, options) {
             opWeight += descMatches.length;
           }
         }
-
+        // check that the opweight of the enpoint is not zero or
+        // user selected a mehtod and endpoint method doesn't match the one
+        // selected by the user
         if (
           !(opWeight === 0 ||
           (options &&
